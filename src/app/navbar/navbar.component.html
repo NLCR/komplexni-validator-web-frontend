@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" fxLayout="row">
+    <div fxFlex>
+        <a routerLink="/" class="app-logo" fxLayout="row">
+            Komplexní validátor
+        </a>
+    </div>
+    <div>
+        <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item">Validace</a>
+        <a routerLink="/about" routerLinkActive="active" mat-button class="app-navbar-item">About</a>
+        <!-- <ng-container *ngIf="auth.isLoggedIn()"> 
+        <a (click)="changeLang('cs')" mat-button *ngIf="ui.currentLang !== 'cs'">CS</a>
+      <a (click)="changeLang('en')" mat-button *ngIf="ui.currentLang !== 'en'">EN</a> -->
+
+        <!-- <ng-container *ngIf="auth.isLoggedIn()">
+        <a [matMenuTriggerFor]="profile_menu" mat-button class="app-avatar">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            {{ auth.getTextProfileImage() }}
+          </div>
+        </a>
+      </ng-container> -->
+
+        <!-- <mat-menu #profile_menu="matMenu">
+        <button mat-menu-item disabled *ngIf="auth.user">
+          <mat-icon>person</mat-icon>
+          <span>{{ auth.user.name || auth.user.uid }}</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>{{ 'navbar.logout' | translate }}</span>
+        </button>
+      </mat-menu> -->
+
+    </div>
+    <!-- <ng-container *ngIf="auth.isLoggedIn()">
+      <span class="app-badge app-version-navbar app-mr-2">{{ 'desc.version' | translate }} {{getVersion()}}</span>
+    </ng-container> -->
+</mat-toolbar>
