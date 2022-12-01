@@ -1,1 +1,42 @@
-<p>TODO: validations</p>
+<div class="app-validation">
+
+    
+
+    <div class="app-mt-4 app-mb-4">
+        <h3 class="app-mt-0">Validace</h3>
+        <button (click)="test()">Reload validations</button>
+        <table class="app-table" *ngIf="validations">
+            <tbody>
+                <th>id</th>
+                <th>state</th>
+                <th>ownerId</th>
+                <th>priority</th>
+                <th>actions</th>
+
+                <tr *ngFor="let validation of validations" class="app-mb-1">
+                    <td class="app-col-action">
+                        {{validation['id']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['state']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['ownerId']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['priority']}}
+                    </td>
+                    <td>
+                        <!-- <a class="app-btn-warn" (click)="onRemoveLicense(license)"
+                  [matTooltip]="'button.removeLicense' | translate">
+                  <mat-icon>cancel</mat-icon>
+                </a> -->
+                        <button>action1</button>
+                        <button>action2</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

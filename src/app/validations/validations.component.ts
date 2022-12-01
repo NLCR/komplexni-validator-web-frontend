@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-validations',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValidationsComponent implements OnInit {
 
-  constructor() { }
+  validations = [];
+
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
+    this.loadValidations();
+  }
+
+  loadValidations() {
+    this.backend.getValidations().subscribe(result => {
+      this.validations = result;
+      console.log(result);
+    })
+  }
+
+  test() {
+    this.loadValidations();
   }
 
 }
