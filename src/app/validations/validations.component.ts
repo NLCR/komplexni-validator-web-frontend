@@ -23,7 +23,7 @@ export class ValidationsComponent implements OnInit {
     })
   }
 
-  test() {
+  reloadValidations() {
     this.loadValidations();
   }
 

@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ValidationsComponent } from './validations/validations.component';
 import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
+import { QuotasComponent } from './quotas/quotas.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     NavbarComponent,
     ValidationsComponent,
-    AboutComponent
+    AboutComponent,
+    QuotasComponent
   ],
   imports: [
     BrowserModule,

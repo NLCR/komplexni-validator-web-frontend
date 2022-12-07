@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, tap, delay } from 'rxjs';
 import { AppSettingsService } from './app-settings.service';
 
 @Injectable({
@@ -55,9 +55,9 @@ export class BackendService {
     return this.get(`/quotas`, {
       //'model': model
     }).pipe(
-      //delay(500),
+      //delay(1500),
       tap(response => {
-        console.log(response)
+        //console.log(response)
       })
     );
   }
@@ -72,7 +72,5 @@ export class BackendService {
       })
     );
   }
-
-
 
 }

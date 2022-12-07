@@ -1,0 +1,22 @@
+<div class="app-page-quotas">
+
+    <div class="app-mt-4 app-mb-4">
+        <h3 class="app-mt-0">Kvóty</h3>
+        <table class="app-table" *ngIf="getQuotas()">
+            <tbody>
+                <tr *ngFor="let entries of getQuotas()" class="app-mb-1">
+                    <td class="app-col-action">
+                        {{entries[0]}}
+                    </td>
+                    <td class="app-col-action">
+                        {{entries[1]}}
+                    </td>
+                    <td class="app-col-action">
+                        <button (click)="changeQuota(entries[0], entries[1])">Změnit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
