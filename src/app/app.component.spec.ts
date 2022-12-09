@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'komlexni-validator'`, () => {
+  it(`should have as title 'komplexni-validator'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('komlexni-validator');
+    expect(app.title).toEqual('komplexni-validator');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('komlexni-validator app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('komplexni-validator app is running!');
   });
 });

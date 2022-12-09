@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/komlexni-validator'),
+      dir: require('path').join(__dirname, './coverage/komplexni-validator'),
       subdir: '.',
       reporters: [
         { type: 'html' },

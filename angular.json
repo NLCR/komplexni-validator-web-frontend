@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "komlexni-validator": {
+    "komplexni-validator": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/komlexni-validator",
+            "outputPath": "dist/komplexni-validator",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "komlexni-validator:build:production"
+              "browserTarget": "komplexni-validator:build:production"
             },
             "development": {
-              "browserTarget": "komlexni-validator:build:development"
+              "browserTarget": "komplexni-validator:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "komlexni-validator:build"
+            "browserTarget": "komplexni-validator:build"
           }
         },
         "test": {
@@ -112,5 +112,5 @@
       }
     }
   },
-  "defaultProject": "komlexni-validator"
+  "defaultProject": "komplexni-validator"
 }
