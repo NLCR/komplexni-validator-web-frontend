@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, delay } from 'rxjs';
 import { AppSettingsService } from './app-settings.service';
@@ -41,6 +41,10 @@ export class BackendService {
     return this.http.post(this.baseUrl + path, body, options);
   }
 
+  private put(path: string, body: any, options: any = {}): Observable<Object> {
+    return this.http.put(this.baseUrl + path, body, options);
+  }
+
   /*
   private delete(path: string): Observable<Object> {
     return this.http.delete(this.baseUrl + path, {});
@@ -54,8 +58,24 @@ export class BackendService {
   getQuotas(): Observable<any> {
     return this.get(`/quotas`, {
       //'model': model
-    }).pipe(
-      //delay(1500),
+    })
+
+
+      .pipe(
+        //delay(1500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
+  setQuota(quota: any, value: any): Observable<any> {
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
+    return this.put(`/quotas/${quota}`,
+      value,
+      options
+    ).pipe(
+      //delay(500),
       tap(response => {
         //console.log(response)
       })

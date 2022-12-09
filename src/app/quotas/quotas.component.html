@@ -12,7 +12,10 @@
                         {{entries[1]}}
                     </td>
                     <td class="app-col-action">
-                        <button (click)="changeQuota(entries[0], entries[1])">Změnit</button>
+                        <button (click)="incrementQuota(entries[0], entries[1])">+</button>
+                    </td>
+                    <td class="app-col-action">
+                        <button (click)="decrementQuota(entries[0], entries[1])">-</button>
                     </td>
                 </tr>
             </tbody>

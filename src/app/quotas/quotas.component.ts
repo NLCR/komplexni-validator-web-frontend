@@ -30,8 +30,20 @@ export class QuotasComponent implements OnInit {
     return result;
   }
 
-  changeQuota(quota: any, value: any) {
-    console.log('TODO: update ' + quota + ", current value: " + value);
+  incrementQuota(quota: any, value: any) {
+    const newValue = parseInt(value) + 1;
+    this.backend.setQuota(quota, newValue).subscribe(result => {
+      this.loadQuotas();
+    });
+  }
+
+  decrementQuota(quota: any, value: any) {
+    const newValue = parseInt(value) - 1;
+    if (newValue >= 0) {
+      this.backend.setQuota(quota, newValue).subscribe(result => {
+        this.loadQuotas();
+      });
+    }
   }
 
 }
