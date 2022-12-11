@@ -109,6 +109,17 @@ export class BackendService {
       );
   }
 
-
+  cancelValidation(id: string): Observable<any> {
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
+    return this.put(`/validations/${id}/state`,
+      'CANCELED',
+      options
+    ).pipe(
+      //delay(500),
+      tap(response => {
+        //console.log(response)
+      })
+    );
+  }
 
 }

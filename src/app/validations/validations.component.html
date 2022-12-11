@@ -7,6 +7,7 @@
         <button (click)="routeToNewValidationForm()">Nahrát balíček</button>
         <table class="app-table" *ngIf="validations">
             <tbody>
+                <th>created</th>
                 <th>id</th>
                 <th>state</th>
                 <th>ownerId</th>
@@ -14,6 +15,9 @@
                 <th>actions</th>
 
                 <tr *ngFor="let validation of validations" class="app-mb-1">
+                    <td class="app-col-action">
+                        {{validation['tsCreated']}}
+                    </td>
                     <td class="app-col-action">
                         {{validation['id']}}
                     </td>
@@ -33,7 +37,7 @@
                 </a> -->
                         <button (click)="routeToValidation(validation['id'])">detail</button>
                         &nbsp;
-                        <button disabled>cancel</button>
+                        <button (click)="cancelValidation(validation)">zrušit </button>
                     </td>
                 </tr>
             </tbody>

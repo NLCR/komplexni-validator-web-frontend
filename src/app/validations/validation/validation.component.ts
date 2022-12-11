@@ -9,22 +9,28 @@ import { BackendService } from 'src/app/services/backend.service';
 })
 export class ValidationComponent implements OnInit {
 
-
+  id = "";
   validation = undefined;
 
   constructor(private backend: BackendService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = params['id'];
-      this.loadValidation(id);
+      this.id = params['id'];
+      this.loadValidation(this.id);
     });
   }
 
   loadValidation(id: string) {
     this.backend.getValidation(id).subscribe(result => {
       this.validation = result;
-      //console.log(result);
+      console.log(result);
+    })
+  }
+
+  cancelValidation() {
+    this.backend.cancelValidation(this.id).subscribe(result => {
+      this.loadValidation(this.id);
     })
   }
 

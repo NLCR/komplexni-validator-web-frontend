@@ -36,5 +36,11 @@ export class ValidationsComponent implements OnInit {
     this.router.navigate(['/', 'validations', id]);
   }
 
+  cancelValidation(validation: any) {
+    this.backend.cancelValidation(validation.id).subscribe(result => {
+      this.loadValidations();
+    })
+  }
+
 
 }
