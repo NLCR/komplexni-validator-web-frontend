@@ -10,6 +10,7 @@ import { ValidationsComponent } from './validations/validations.component';
 import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QuotasComponent } from './quotas/quotas.component';
+import { NewValidationComponent } from './validations/new-validation/new-validation.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { QuotasComponent } from './quotas/quotas.component';
     NavbarComponent,
     ValidationsComponent,
     AboutComponent,
-    QuotasComponent
+    QuotasComponent,
+    NewValidationComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@
     <div class="app-mt-4 app-mb-4">
         <h3 class="app-mt-0">Validace</h3>
         <button (click)="reloadValidations()">Načíst znovu</button>
+        &nbsp;
+        <button (click)="routeToNewValidationForm()">Nahrát balíček</button>
         <table class="app-table" *ngIf="validations">
             <tbody>
                 <th>id</th>

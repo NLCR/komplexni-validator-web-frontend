@@ -58,15 +58,12 @@ export class BackendService {
   getQuotas(): Observable<any> {
     return this.get(`/quotas`, {
       //'model': model
-    })
-
-
-      .pipe(
-        //delay(1500),
-        tap(response => {
-          //console.log(response)
-        })
-      );
+    }).pipe(
+      //delay(1500),
+      tap(response => {
+        //console.log(response)
+      })
+    );
   }
 
   setQuota(quota: any, value: any): Observable<any> {
@@ -92,5 +89,17 @@ export class BackendService {
       })
     );
   }
+
+  createValidation(ownerId: string, priority: number, note: string): Observable<any> {
+    return this.post(`/validations`, { ownerId: ownerId, priority: priority, note: note })
+      .pipe(
+        //delay(500),
+        tap(response => {
+          console.log(response)
+        })
+      );
+  }
+
+
 
 }
