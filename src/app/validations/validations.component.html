@@ -31,8 +31,9 @@
                   [matTooltip]="'button.removeLicense' | translate">
                   <mat-icon>cancel</mat-icon>
                 </a> -->
-                        <button>action1</button>
-                        <button>action2</button>
+                        <button (click)="routeToValidation(validation['id'])">detail</button>
+                        &nbsp;
+                        <button disabled>cancel</button>
                     </td>
                 </tr>
             </tbody>

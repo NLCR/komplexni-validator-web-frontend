@@ -11,6 +11,7 @@ import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QuotasComponent } from './quotas/quotas.component';
 import { NewValidationComponent } from './validations/new-validation/new-validation.component';
+import { ValidationComponent } from './validations/validation/validation.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NewValidationComponent } from './validations/new-validation/new-validat
     ValidationsComponent,
     AboutComponent,
     QuotasComponent,
-    NewValidationComponent
+    NewValidationComponent,
+    ValidationComponent
   ],
   imports: [
     BrowserModule,

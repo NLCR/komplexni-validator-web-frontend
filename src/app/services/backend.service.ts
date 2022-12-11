@@ -80,14 +80,23 @@ export class BackendService {
   }
 
   getValidations(): Observable<any> {
-    return this.get(`/validations`, {
-      //'model': model
-    }).pipe(
-      //delay(500),
-      tap(response => {
-        //console.log(response)
-      })
-    );
+    return this.get(`/validations`)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
+  getValidation(id: string): Observable<any> {
+    return this.get(`/validations/${id}`)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
   }
 
   createValidation(ownerId: string, priority: number, note: string): Observable<any> {
@@ -95,7 +104,7 @@ export class BackendService {
       .pipe(
         //delay(500),
         tap(response => {
-          console.log(response)
+          //console.log(response)
         })
       );
   }

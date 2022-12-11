@@ -20,7 +20,7 @@ export class ValidationsComponent implements OnInit {
   loadValidations() {
     this.backend.getValidations().subscribe(result => {
       this.validations = result;
-      console.log(result);
+      //console.log(result);
     })
   }
 
@@ -31,5 +31,10 @@ export class ValidationsComponent implements OnInit {
   routeToNewValidationForm() {
     this.router.navigate(['/', 'validations', 'new']);
   }
+
+  routeToValidation(id: string) {
+    this.router.navigate(['/', 'validations', id]);
+  }
+
 
 }

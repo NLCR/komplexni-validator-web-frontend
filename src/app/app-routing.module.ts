@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { QuotasComponent } from './quotas/quotas.component';
 import { NewValidationComponent } from './validations/new-validation/new-validation.component';
+import { ValidationComponent } from './validations/validation/validation.component';
 import { ValidationsComponent } from './validations/validations.component';
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'validations', component: ValidationsComponent },
   { path: 'validations/new', component: NewValidationComponent },
+  { path: 'validations/:id', component: ValidationComponent },
   { path: 'quotas', component: QuotasComponent },
 ];
 

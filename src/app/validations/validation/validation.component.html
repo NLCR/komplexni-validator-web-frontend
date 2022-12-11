@@ -1,0 +1,17 @@
+<div class="app-page-validation">
+    <div *ngIf="validation">
+        <div>id: {{validation['id']}}</div>
+        <div>ownerId: {{validation['ownerId']}}</div>
+        <div>state: {{validation['state']}}</div>
+        <div>priority: {{validation['priority']}}</div>
+        <div>note: {{validation['note']}}</div>
+    </div>
+
+    <br>
+    <div>
+        <!-- TODO: panel s tlacitky -->
+        <button disabled>zrušit</button>
+        &nbsp;
+        <button disabled>stáhnout výstupy</button>
+    </div>
+</div>
