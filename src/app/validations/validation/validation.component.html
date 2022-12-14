@@ -23,7 +23,12 @@
     <div>
         <!-- TODO: panel s tlacitky -->
         <button (click)="cancelValidation()">zrušit</button>
-        &nbsp;
-        <button disabled>stáhnout výstupy</button>
+        <br>
+        <div *ngIf="extractionLogAvailable()">
+            <a  mat-flat-button color="primary" [href]="extractionLogUrl()">
+                <mat-icon>download</mat-icon>
+                stáhnout log extrakce
+            </a>
+        </div>
     </div>
 </div>
