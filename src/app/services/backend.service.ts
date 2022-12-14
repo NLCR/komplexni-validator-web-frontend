@@ -55,6 +55,27 @@ export class BackendService {
     return this.http.delete(this.baseUrl + path, options);
   }
 
+  test(): Observable<any> {
+    const options = { headers: new HttpHeaders({ 'Authorization': 'Basic blabla' }) };
+
+    // return this.get(`/kstats_1/_search`, {
+    //   //'model': model
+    // }).pipe(
+    //   //delay(1500),
+    //   tap(response => {
+    //     //console.log(response)
+    //   })
+    // );
+
+    return this.post(`/kstats_1/_search`, { something: "value" }, options)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
   getQuotas(): Observable<any> {
     return this.get(`/quotas`, {
       //'model': model
@@ -99,8 +120,8 @@ export class BackendService {
       );
   }
 
-  createValidation(ownerId: string, priority: number, note: string): Observable<any> {
-    return this.post(`/validations`, { ownerId: ownerId, priority: priority, note: note })
+  uploadPackage(ownerId: string, note: string): Observable<any> {
+    return this.post(`/uploads`, { ownerId: ownerId, note: note })
       .pipe(
         //delay(500),
         tap(response => {
@@ -120,6 +141,20 @@ export class BackendService {
         //console.log(response)
       })
     );
+  }
+
+  createValidationTest(formData: any): Observable<any> {
+    return this.post(`/validations/upload-test`,
+      formData
+      //{ ownerId: ownerId, priority: priority, note: note }
+
+    )
+      .pipe(
+        //delay(500),
+        tap(response => {
+          console.log(response)
+        })
+      );
   }
 
 }

@@ -1,4 +1,52 @@
 <div class="app-page-validations-new">
     <button (click)="test()">test</button>
-    TODO: formular pro nahrani baliku
+
+    <!-- <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="indeterminate"></mat-progress-bar> -->
+
+
+    <form #f="ngForm" (ngSubmit)="schedule(f.value)">
+        <!-- <h2 mat-dialog-title>blabla</h2> -->
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Fill form field</mat-label>
+                <input matInput placeholder="Placeholder">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Outline form field</mat-label>
+                <input matInput placeholder="Placeholder">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </p>
+
+        <!-- <input type="file" class="file-upload" onchange="console.log(event.target.files)"> -->
+
+
+
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept="application/zip">
+        <div class="file-upload">
+            {{fileName || "Vyberte balík ve souboru ZIP."}}
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+
+
+
+
+        <div>
+            <button mat-flat-button  color="primary" type="submit" (click)="fileUpload.click()">Upload-test</button>
+            &nbsp;
+
+            <button mat-flat-button [disabled]="inProgress || !f.valid" color="primary" type="submit">Nahrát</button>
+        </div>
+
+
+    </form>
+
+
 </div>
