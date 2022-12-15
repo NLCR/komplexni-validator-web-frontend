@@ -21,6 +21,10 @@ import { ValidationsComponent } from './validations/validations.component';
 import { ValidationComponent } from './validations/validation/validation.component';
 import { NewValidationComponent } from './validations/new-validation/new-validation.component';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { UserComponent } from './user/user.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,8 @@ import { NewValidationComponent } from './validations/new-validation/new-validat
     AboutComponent,
     QuotasComponent,
     NewValidationComponent,
-    ValidationComponent
+    ValidationComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +50,38 @@ import { NewValidationComponent } from './validations/new-validation/new-validat
     MatToolbarModule,
     MatProgressBarModule,
     MatIconModule,
+
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false, //TODO:?
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '657833583166-05dul361gfjhje1mn04licsfokr8mrnn.apps.googleusercontent.com',
+              {
+                scope: 'email',
+                ux_mode: 'redirect',
+                plugin_name: 'komplexnivalidatorweb', //https://github.com/abacritt/angularx-social-login/issues/504#issuecomment-1143312259
+                //oneTapEnabled: false, // default is true
+              }
+            )
+          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('clientId')
+          // }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

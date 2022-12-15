@@ -12,9 +12,9 @@ export class AboutComponent implements OnInit {
   constructor(private backend: BackendService, private router: Router) { }
 
   ngOnInit(): void {
-    this.backend.test().subscribe(result => {
-      console.log(result);
-    })
+    // this.backend.test().subscribe(result => {
+    //   console.log(result);
+    // })
   }
 
 }

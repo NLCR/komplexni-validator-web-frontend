@@ -1,0 +1,23 @@
+<div class="app-page-user">
+
+    <div *ngIf="!getUser()">
+        <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
+            Přihlásit se pomocí Google
+        </button>
+    </div>
+
+    <div *ngIf="getUser()" class="app-user-info">
+        <h3>{{ getUser().name }}</h3>
+        <p>{{ getUser().email }}</p>
+
+        <div *ngIf="getUser()?.photoUrl">
+            <img src="{{ getUser().photoUrl }}">
+        </div>
+
+        &nbsp;
+        <button (click)="logout()" mat-raised-button class="google-login-btn">
+            Odhlásit se
+        </button>
+    </div>
+
+</div>

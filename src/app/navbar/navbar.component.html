@@ -1,18 +1,33 @@
 <mat-toolbar color="primary" fxLayout="row">
-    <div fxFlex>
-        <a routerLink="/" class="app-logo" fxLayout="row">
-            Komplexní validátor
-        </a>
+  <div fxFlex>
+    <a routerLink="/" class="app-logo" fxLayout="row">
+      Komplexní validátor
+    </a>
+  </div>
+  <div>
+    <div class="app-navbar-item">
+      <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item-a">Validace</a>
     </div>
-    <div>
-        <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item">Validace</a>
-        <a routerLink="/quotas" routerLinkActive="active" mat-button class="app-navbar-item">Kvóty</a>
-        <a routerLink="/about" routerLinkActive="active" mat-button class="app-navbar-item">Informace</a>
-        <!-- <ng-container *ngIf="auth.isLoggedIn()"> 
+    <div class="app-navbar-item">
+      <a routerLink="/quotas" routerLinkActive="active" mat-button class="app-navbar-item-a">Kvóty</a>
+    </div>
+    <div class="app-navbar-item">
+      <a routerLink="/about" routerLinkActive="active" mat-button class="app-navbar-item-a">Informace</a>
+    </div>
+    <!-- <div class="app-navbar-item">
+      <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a">Uživatel</a>
+    </div> -->
+    <div class="app-navbar-item">
+      <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a"><img src="{{getThumbnail()}}"
+          class="app-navbar-avatar"></a>
+    </div>
+
+
+    <!-- <ng-container *ngIf="auth.isLoggedIn()"> 
         <a (click)="changeLang('cs')" mat-button *ngIf="ui.currentLang !== 'cs'">CS</a>
       <a (click)="changeLang('en')" mat-button *ngIf="ui.currentLang !== 'en'">EN</a> -->
 
-        <!-- <ng-container *ngIf="auth.isLoggedIn()">
+    <!-- <ng-container *ngIf="auth.isLoggedIn()">
         <a [matMenuTriggerFor]="profile_menu" mat-button class="app-avatar">
           <div fxLayout="row" fxLayoutAlign="center center">
             {{ auth.getTextProfileImage() }}
@@ -20,7 +35,7 @@
         </a>
       </ng-container> -->
 
-        <!-- <mat-menu #profile_menu="matMenu">
+    <!-- <mat-menu #profile_menu="matMenu">
         <button mat-menu-item disabled *ngIf="auth.user">
           <mat-icon>person</mat-icon>
           <span>{{ auth.user.name || auth.user.uid }}</span>
@@ -31,8 +46,8 @@
         </button>
       </mat-menu> -->
 
-    </div>
-    <!-- <ng-container *ngIf="auth.isLoggedIn()">
+  </div>
+  <!-- <ng-container *ngIf="auth.isLoggedIn()">
       <span class="app-badge app-version-navbar app-mr-2">{{ 'desc.version' | translate }} {{getVersion()}}</span>
     </ng-container> -->
 </mat-toolbar>
