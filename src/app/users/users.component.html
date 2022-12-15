@@ -1,0 +1,30 @@
+<div class="app-page-users">
+
+    <div class="app-mt-4 app-mb-4">
+        <h3 class="app-mt-0">Uživatelé</h3>
+        <button (click)="reloadUsers()">Načíst znovu</button>
+        <table class="app-table" *ngIf="users">
+            <tbody>
+                <th>picture</th>
+                <th>email</th>
+                <th>name</th>
+
+                <tr *ngFor="let user of users" class="app-mb-1">
+                    <td class="app-col-action">
+                        <img src="{{user['pictureUrl']}}" style="width:20px">
+                    </td>
+                    <td class="app-col-action">
+                        {{user['email']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{user['name']}}
+                    </td>
+                    <td>
+                        <button (click)="routeToUserDetail(user['id'])">detail</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

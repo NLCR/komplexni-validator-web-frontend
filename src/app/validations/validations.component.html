@@ -1,0 +1,47 @@
+<div class="app-page-validations">
+
+    <div class="app-mt-4 app-mb-4">
+        <h3 class="app-mt-0">Validace</h3>
+        <button (click)="reloadValidations()">Načíst znovu</button>
+        &nbsp;
+        <button (click)="routeToNewValidationForm()">Nahrát balíček</button>
+        <table class="app-table" *ngIf="validations">
+            <tbody>
+                <th>created</th>
+                <th>id</th>
+                <th>state</th>
+                <th>ownerId</th>
+                <th>priority</th>
+                <th>actions</th>
+
+                <tr *ngFor="let validation of validations" class="app-mb-1">
+                    <td class="app-col-action">
+                        {{validation['tsCreated']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['id']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['state']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['ownerId']}}
+                    </td>
+                    <td class="app-col-action">
+                        {{validation['priority']}}
+                    </td>
+                    <td>
+                        <!-- <a class="app-btn-warn" (click)="onRemoveLicense(license)"
+                  [matTooltip]="'button.removeLicense' | translate">
+                  <mat-icon>cancel</mat-icon>
+                </a> -->
+                        <button (click)="routeToValidation(validation['id'])">detail</button>
+                        &nbsp;
+                        <button (click)="cancelValidation(validation)">zrušit </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

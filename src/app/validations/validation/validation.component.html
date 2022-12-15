@@ -1,0 +1,34 @@
+<div class="app-page-validation">
+    <div *ngIf="validation">
+        <div>
+            <div>id: {{validation['id']}}</div>
+            <div>ownerId: {{validation['ownerId']}}</div>
+            <div>state: {{validation['state']}}</div>
+            <div>priority: {{validation['priority']}}</div>
+            <div>note: {{validation['note']}}</div>
+        </div>
+
+        <br>
+
+        <div>
+            <h3>časové známky</h3>
+            <div *ngIf="validation['tsCreated']">created: {{validation['tsCreated']}}</div>
+            <div *ngIf="validation['tsScheduled']">scheduled: {{validation['tsScheduled']}}</div>
+            <div *ngIf="validation['tsStarted']">started: {{validation['tsStarted']}}</div>
+            <div *ngIf="validation['tsEnded']">ended: {{validation['tsEnded']}}</div>
+        </div>
+    </div>
+
+    <br>
+    <div>
+        <!-- TODO: panel s tlacitky -->
+        <button (click)="cancelValidation()">zrušit</button>
+        <br>
+        <div *ngIf="extractionLogAvailable()">
+            <a  mat-flat-button color="primary" [href]="extractionLogUrl()">
+                <mat-icon>download</mat-icon>
+                stáhnout log extrakce
+            </a>
+        </div>
+    </div>
+</div>
