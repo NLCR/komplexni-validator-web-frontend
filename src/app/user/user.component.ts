@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { BackendService } from '../services/backend.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from '../services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private router: Router, private socialAuthService: SocialAuthService, private userService: UserService) {
+  constructor(private router: Router, private socialAuthService: SocialAuthService, private userService: UserService, private backend: BackendService) {
   }
 
   ngOnInit(): void {
@@ -22,7 +23,8 @@ export class UserComponent implements OnInit {
     this.socialAuthService.authState.subscribe((user) => {
       console.log("auth state changed");
       console.log(user)
-      this.userService.user = user;
+      this.userService.socialUser = user;
+      this.fetchBackendUser(user);
       //this.refreshToken();
     });
 
@@ -36,16 +38,31 @@ export class UserComponent implements OnInit {
       });
   }
 
-  getUser() {
-    return this.userService.user;
+  getSocialUser() {
+    return this.userService.socialUser;
+  }
+
+  getBackendUser() {
+    return this.userService.backendUser;
   }
 
   refreshToken() {
+    console.log("refreshToken()");
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 
   logout() {
     this.socialAuthService.signOut(true);
+  }
+
+  test(){
+    this.fetchBackendUser(this.userService.socialUser);
+  }
+
+  fetchBackendUser(user: any) {
+    this.backend.updateAndVerifyUser(user.idToken).subscribe(backendUser => {
+      this.userService.backendUser = backendUser;
+    });
   }
 
 }

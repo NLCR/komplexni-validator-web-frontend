@@ -120,6 +120,27 @@ export class BackendService {
       );
   }
 
+  getUsers(): Observable<any> {
+    return this.get(`/users`)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
+  updateAndVerifyUser(idToken: string): Observable<any> {
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
+    return this.put(`/users/authenticated`, idToken, options)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
   uploadPackage(ownerId: string, note: string): Observable<any> {
     return this.post(`/uploads`, { ownerId: ownerId, note: note })
       .pipe(

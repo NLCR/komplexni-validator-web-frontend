@@ -1,17 +1,22 @@
 <div class="app-page-user">
 
-    <div *ngIf="!getUser()">
+    <div *ngIf="!getSocialUser()">
         <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
             Přihlásit se pomocí Google
         </button>
     </div>
 
-    <div *ngIf="getUser()" class="app-user-info">
-        <h3>{{ getUser().name }}</h3>
-        <p>{{ getUser().email }}</p>
+    <div *ngIf="getSocialUser()" class="app-user-info">
+        <h3>{{ getSocialUser().name }}</h3>
+        <p>{{ getSocialUser().email }}</p>
 
-        <div *ngIf="getUser()?.photoUrl">
-            <img src="{{ getUser().photoUrl }}">
+        <div *ngIf="getSocialUser()?.photoUrl">
+            <img src="{{ getSocialUser().photoUrl }}">
+        </div>
+
+        <div *ngIf="getBackendUser()">
+            <p>admin: {{ getBackendUser().admin }}</p>
+            <p>verified: {{ getBackendUser().verified }}</p>
         </div>
 
         &nbsp;
@@ -19,5 +24,8 @@
             Odhlásit se
         </button>
     </div>
+
+    &nbsp;
+    <button (click)="test()" mat-raised-button class="google-login-btn">Test </button>
 
 </div>

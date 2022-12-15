@@ -24,6 +24,7 @@ import { NewValidationComponent } from './validations/new-validation/new-validat
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { UserComponent } from './user/user.component';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { UserComponent } from './user/user.component';
     QuotasComponent,
     NewValidationComponent,
     ValidationComponent,
-    UserComponent
+    UserComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

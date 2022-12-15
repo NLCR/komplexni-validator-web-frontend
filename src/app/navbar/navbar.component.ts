@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getThumbnail() {
-    return this.userService?.user?.photoUrl;
+    return this.userService?.socialUser?.photoUrl;
   }
 
 }
