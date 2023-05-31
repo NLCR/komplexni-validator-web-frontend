@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { BackendService } from '../services/backend.service';
 import { UserService } from '../services/user.service';
 
@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
     this.socialAuthService.signOut(true);
   }
 
-  test(){
+  test() {
     this.fetchBackendUser(this.userService.socialUser);
   }
 
