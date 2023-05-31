@@ -19,5 +19,6 @@ export class AppSettingsService {
   // clientApiBaseUrl = this.coreBaseUrl + '/api/client/v7.0';
   // adminApiBaseUrl = this.coreBaseUrl + '/api/admin/v7.0';
 
-  adminApiBaseUrl = 'http://localhost:8080/validator-api/api'
+  //adminApiBaseUrl = 'http://localhost:8080/validator-api/api'
+  adminApiBaseUrl = 'http://localhost:8080'
 }

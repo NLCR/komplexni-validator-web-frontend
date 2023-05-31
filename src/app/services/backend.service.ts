@@ -77,7 +77,7 @@ export class BackendService {
   }
 
   getQuotas(): Observable<any> {
-    return this.get(`/quotas`, {
+    return this.get(`/kv-quota-service/api/quotas`, {
       //'model': model
     }).pipe(
       //delay(1500),
@@ -89,7 +89,7 @@ export class BackendService {
 
   setQuota(quota: any, value: any): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
-    return this.put(`/quotas/${quota}`,
+    return this.put(`/kv-validation-manager-service/api/quotas/${quota}`,
       value,
       options
     ).pipe(
@@ -101,7 +101,7 @@ export class BackendService {
   }
 
   getValidations(): Observable<any> {
-    return this.get(`/validations`)
+    return this.get(`/kv-validation-manager-service/api/validations`)
       .pipe(
         //delay(500),
         tap(response => {
@@ -111,7 +111,7 @@ export class BackendService {
   }
 
   getValidation(id: string): Observable<any> {
-    return this.get(`/validations/${id}`)
+    return this.get(`/kv-validation-manager-service/api/validations/${id}`)
       .pipe(
         //delay(500),
         tap(response => {
@@ -121,7 +121,7 @@ export class BackendService {
   }
 
   getUsers(): Observable<any> {
-    return this.get(`/users`)
+    return this.get(`/kv-user-service/api/users`)
       .pipe(
         //delay(500),
         tap(response => {
@@ -132,7 +132,7 @@ export class BackendService {
 
   updateAndVerifyUser(idToken: string): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
-    return this.put(`/users/authenticated`, idToken, options)
+    return this.put(`/kv-user-service/api/users/authenticated`, idToken, options)
       .pipe(
         //delay(500),
         tap(response => {
@@ -142,7 +142,7 @@ export class BackendService {
   }
 
   uploadPackage(ownerId: string, note: string): Observable<any> {
-    return this.post(`/uploads`, { ownerId: ownerId, note: note })
+    return this.post(`/kv-upload-service/api/uploads`, { ownerId: ownerId, note: note })
       .pipe(
         //delay(500),
         tap(response => {
@@ -153,7 +153,7 @@ export class BackendService {
 
   cancelValidation(id: string): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
-    return this.put(`/validations/${id}/state`,
+    return this.put(`/kv-validation-manager-service/api/validations/${id}/state`,
       'CANCELED',
       options
     ).pipe(
@@ -165,7 +165,7 @@ export class BackendService {
   }
 
   createValidationTest(formData: any): Observable<any> {
-    return this.post(`/validations/upload-test`,
+    return this.post(`/kv-validation-manager-service/validations/upload-test`,
       formData
       //{ ownerId: ownerId, priority: priority, note: note }
 

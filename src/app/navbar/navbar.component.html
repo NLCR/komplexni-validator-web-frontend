@@ -21,8 +21,11 @@
       <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a">Uživatel</a>
     </div> -->
     <div class="app-navbar-item">
-      <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a"><img src="{{getThumbnail()}}"
-          class="app-navbar-avatar"></a>
+      <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a">
+        <img *ngIf="isThumbnailAvailable()" src="{{getThumbnail()}}" class="app-navbar-avatar">
+        <div *ngIf="!isThumbnailAvailable()">Přihlášení</div>
+      </a>
+
     </div>
 
 
