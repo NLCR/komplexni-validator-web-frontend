@@ -89,7 +89,7 @@ export class BackendService {
 
   setQuota(quota: any, value: any): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
-    return this.put(`/kv-validation-manager-service/api/quotas/${quota}`,
+    return this.put(`/kv-quota-service/api/quotas/${quota}`,
       value,
       options
     ).pipe(
