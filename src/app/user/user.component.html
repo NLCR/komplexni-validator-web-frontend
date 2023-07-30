@@ -1,18 +1,45 @@
 <div class="app-page-user">
 
-    <div *ngIf="!getSocialUser()">
+
+    <div style="background-color: antiquewhite; padding: 20px; margin: 10px;" hidden>
+        <h2>Test section</h2>
         <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
             Přihlásit se pomocí Google
         </button>
+        <br>
+        <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button> -->
+        <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'" [theme]="'outline'"></asl-google-signin-button> -->
+        <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
+            [theme]="'outline'"></asl-google-signin-button> -->
+        <br>
+        <!-- <button (click)="refreshToken()">Refresh token</button> -->
+    </div>
+
+
+    <!-- <div *ngIf="!getSocialUser()"> -->
+    <!-- <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
+            Přihlásit se pomocí Google
+        </button> -->
+    <!-- NO, SOCIAL TOKEN NULL
+    </div> -->
+
+
+
+
+    <div *ngIf="!getSocialUser()">
+        <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
+            [theme]="'outline'"></asl-google-signin-button>
     </div>
 
     <div *ngIf="getSocialUser()" class="app-user-info">
+        <!-- YEAH, SOCIAL TOKEN PRESEN -->
         <h3>{{ getSocialUser().name }}</h3>
-        <p>{{ getSocialUser().email }}</p>
 
         <div *ngIf="getSocialUser()?.photoUrl">
             <img src="{{ getSocialUser().photoUrl }}">
         </div>
+
+        <p>{{ getSocialUser().email }}</p>
 
         <div *ngIf="getBackendUser()">
             <p>admin: {{ getBackendUser().admin }}</p>
@@ -24,8 +51,8 @@
             Odhlásit se
         </button>
     </div>
-
+    <!-- 
     &nbsp;
-    <button (click)="test()" mat-raised-button class="google-login-btn">Test </button>
+    <button (click)="test()" mat-raised-button class="google-login-btn">Test </button> -->
 
 </div>

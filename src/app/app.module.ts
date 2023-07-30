@@ -24,6 +24,7 @@ import { NewValidationComponent } from './validations/new-validation/new-validat
 
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 
@@ -54,13 +55,14 @@ import { UsersComponent } from './users/users.component';
     MatProgressBarModule,
     MatIconModule,
 
-    SocialLoginModule
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false, //TODO:?
+        autoLogin: true, //TODO:?
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,

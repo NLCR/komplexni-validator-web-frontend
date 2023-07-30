@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.socialAuthService.initState.subscribe(initState => {
       console.log('initState: ' + initState)
-      this.refreshToken();
+      //this.refreshToken();
     })
 
     this.socialAuthService.authState.subscribe((user) => {
@@ -31,11 +31,13 @@ export class UserComponent implements OnInit {
   }
 
   loginWithGoogle() {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then(resp => {
-        //this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
-        this.refreshToken();
-      });
+    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+    //   .then(resp => {
+    //     console.log("signIn() resp");
+    //     //this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+    //     this.refreshToken();
+    //   });
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   getSocialUser() {
@@ -60,9 +62,15 @@ export class UserComponent implements OnInit {
   }
 
   fetchBackendUser(user: any) {
-    this.backend.updateAndVerifyUser(user.idToken).subscribe(backendUser => {
-      this.userService.backendUser = backendUser;
-    });
+    console.log("fetchBackendUser(): ");
+    console.log(user);
+    if (user) {
+      this.backend.updateAndVerifyUser(user.idToken).subscribe(backendUser => {
+        this.userService.backendUser = backendUser;
+        console.log("fetchBackendUser(): backendUser: ");
+        console.log(backendUser);
+      });
+    }
   }
 
 }
