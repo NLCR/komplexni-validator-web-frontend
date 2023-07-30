@@ -9,4 +9,8 @@ export class UserService {
   backendUser: any;
 
   constructor() { }
+
+  public isAdmin() {
+    return this.backendUser?.admin;
+  }
 }

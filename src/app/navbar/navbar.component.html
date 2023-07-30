@@ -8,10 +8,10 @@
     <div class="app-navbar-item">
       <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item-a">Validace</a>
     </div>
-    <div class="app-navbar-item">
+    <div class="app-navbar-item" *ngIf="isAdmin()">
       <a routerLink="/quotas" routerLinkActive="active" mat-button class="app-navbar-item-a">Kvóty</a>
     </div>
-    <div class="app-navbar-item">
+    <div class="app-navbar-item" *ngIf="isAdmin()">
       <a routerLink="/users" routerLinkActive="active" mat-button class="app-navbar-item-a">Uživatelé</a>
     </div>
     <div class="app-navbar-item">

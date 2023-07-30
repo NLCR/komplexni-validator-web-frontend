@@ -32,6 +32,24 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/', 'users', id]);
   }
 
+  setAdmin(user: any, admin: boolean) {
+    const data = {
+      admin: admin
+    }
+    this.backend.updateUser(user.id, data).subscribe(result => {
+      this.loadUsers();
+    });
+  }
+
+  verifyUser(user: any) {
+    const data = {
+      verified: true
+    }
+    this.backend.updateUser(user.id, data).subscribe(result => {
+      this.loadUsers();
+    });
+  }
+
 
 
 }

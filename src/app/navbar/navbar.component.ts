@@ -21,4 +21,8 @@ export class NavbarComponent implements OnInit {
     return this.userService?.socialUser;
   }
 
+  isAdmin() {
+    return this.userService.isAdmin();
+  }
+
 }

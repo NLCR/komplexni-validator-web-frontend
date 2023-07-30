@@ -5,22 +5,40 @@
         <button (click)="reloadUsers()">Načíst znovu</button>
         <table class="app-table" *ngIf="users">
             <tbody>
-                <th>picture</th>
+                <th></th>
+                <th>jméno</th>
+                <th></th>
                 <th>email</th>
-                <th>name</th>
+                <th></th>
+                <th>admin práva</th>
+                <th></th>
+                <th>ověřený uživatel</th>
 
                 <tr *ngFor="let user of users" class="app-mb-1">
                     <td class="app-col-action">
                         <img src="{{user['pictureUrl']}}" style="width:20px">
                     </td>
                     <td class="app-col-action">
-                        {{user['email']}}
-                    </td>
-                    <td class="app-col-action">
                         {{user['name']}}
                     </td>
-                    <td>
-                        <button (click)="routeToUserDetail(user['id'])">detail</button>
+                    <td>|</td>
+                    <td class="app-col-action">
+                        {{user['email']}}
+                    </td>
+                    <td>|</td>
+                    <td class="app-col-action">
+                        <ng-container *ngIf="user['admin']">admin</ng-container>
+                        <ng-container *ngIf="!user['admin']">neadmin</ng-container>
+                        &nbsp;
+                        <button *ngIf="!user['admin']" (click)="setAdmin(user, true)">přidat</button>
+                        <button *ngIf="user['admin']" (click)="setAdmin(user, false)">odebrat</button>
+                    </td>
+                    <td>|</td>
+                    <td class="app-col-action">
+                        <ng-container *ngIf="user['verified']">ověřený</ng-container>
+                        <ng-container *ngIf="!user['verified']" style="display: block;">neověřený</ng-container>
+                        &nbsp;
+                        <button (click)="verifyUser(user)">ověřit</button>
                     </td>
                 </tr>
             </tbody>

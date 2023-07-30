@@ -130,9 +130,21 @@ export class BackendService {
       );
   }
 
+  //TODO: prejmenovat
   updateAndVerifyUser(idToken: string): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
     return this.put(`/kv-user-service/api/users/authenticated`, idToken, options)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
+  updateUser(userId: string, data: any): Observable<any> {
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.put(`/kv-user-service/api/users/${userId}`, data)
       .pipe(
         //delay(500),
         tap(response => {
