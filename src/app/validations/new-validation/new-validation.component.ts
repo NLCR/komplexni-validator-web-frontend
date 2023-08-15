@@ -88,15 +88,15 @@ export class NewValidationComponent implements OnInit {
       formData.append("prefered-dmf", 'mon_1.2')
       console.log(formData);
 
-      this.formData.append("file", file);
-      this.formData.append("prefered-dmf", 'mon_1.2')
+      //this.formData.append("file", file);
+      //this.formData.append("prefered-dmf", 'mon_1.2')
 
-      console.log(this.formData);
+      //console.log(this.formData);
 
       //const upload$ = this.http.post("/api/thumbnail-upload", formData);
       //upload$.subscribe();
 
-      this.backend.createValidationTest(formData).subscribe(response => {
+      this.backend.createValidation(formData).subscribe(response => {
         console.log(response);
       })
 

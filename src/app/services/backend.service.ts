@@ -153,16 +153,6 @@ export class BackendService {
       );
   }
 
-  uploadPackage(ownerId: string, note: string): Observable<any> {
-    return this.post(`/kv-upload-service/api/uploads`, { ownerId: ownerId, note: note })
-      .pipe(
-        //delay(500),
-        tap(response => {
-          //console.log(response)
-        })
-      );
-  }
-
   cancelValidation(id: string): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
     return this.put(`/kv-validation-manager-service/api/validations/${id}/state`,
@@ -176,18 +166,30 @@ export class BackendService {
     );
   }
 
-  createValidationTest(formData: any): Observable<any> {
-    return this.post(`/kv-validation-manager-service/validations/upload-test`,
+  createValidation(formData: any): Observable<any> {
+    return this.post(`/kv-upload-service/api/uploads`,
       formData
       //{ ownerId: ownerId, priority: priority, note: note }
+    ).pipe(
+      //delay(500),
+      tap(response => {
+        console.log(response)
+      })
+    );
+  }
 
-    )
+  uploadPackage(ownerId: string, note: string): Observable<any> {
+    return this.post(`/kv-upload-service/api/uploads`, { ownerId: ownerId, note: note })
       .pipe(
         //delay(500),
         tap(response => {
-          console.log(response)
+          //console.log(response)
         })
       );
+  }
+
+  getExtractionLogUrl(validationId: string) {
+    return this.baseUrl + `/kv-result-service/api/results/${validationId}/extraction-log`;
   }
 
 }

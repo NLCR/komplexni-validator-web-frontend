@@ -36,7 +36,8 @@ export class ValidationComponent implements OnInit {
   }
 
   extractionLogAvailable() {
-    switch (this.validation!['state']) {
+    if (!this.validation) return false;
+    switch (this.validation['state']) {
       case 'READY_FOR_EXECUTION':
       case 'TO_BE_EXECUTED':
       case 'EXECUTING':
@@ -52,7 +53,7 @@ export class ValidationComponent implements OnInit {
   }
 
   extractionLogUrl() {
-    return `${this.appSettings.adminApiBaseUrl}/results/${this.validation!['id']}/extraction-log`
+    return this.backend.getExtractionLogUrl(this.validation!['id']);
   }
 
 }
