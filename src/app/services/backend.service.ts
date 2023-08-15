@@ -195,4 +195,12 @@ export class BackendService {
   getExecutionLogUrl(validationId: string) {
     return this.baseUrl + `/kv-result-service/api/results/${validationId}/extraction-log`;
   }
+
+  getValidationLogTxtUrl(validationId: string) {
+    return this.baseUrl + `/kv-result-service/api/results/${validationId}/validation-log-txt`;
+  }
+
+  getValidationLogXmlUrl(validationId: string) {
+    return this.baseUrl + `/kv-result-service/api/results/${validationId}/validation-log-xml`;
+  }
 }

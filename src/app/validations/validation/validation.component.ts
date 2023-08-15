@@ -74,4 +74,39 @@ export class ValidationComponent implements OnInit {
     return this.backend.getExecutionLogUrl(this.validation!['id']);
   }
 
+  validationLogTxtAvailable() {
+    if (!this.validation) return false;
+    switch (this.validation['state']) {
+      case 'FINISHED':
+      case 'ERROR': //nekdy muze byt prazdny, pokud error nastal treba pri rozbalovani
+      case 'TO_BE_ARCHIVED':
+      case 'ARCHIVING':
+      case 'ARCHIVED':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  validationLogXmlAvailable() {
+    if (!this.validation) return false;
+    switch (this.validation['state']) {
+      case 'FINISHED':
+      case 'TO_BE_ARCHIVED':
+      case 'ARCHIVING':
+      case 'ARCHIVED':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  validationLogTxtUrl() {
+    return this.backend.getValidationLogTxtUrl(this.validation!['id']);
+  }
+
+  validationLogXmlUrl() {
+    return this.backend.getValidationLogXmlUrl(this.validation!['id']);
+  }
+
 }

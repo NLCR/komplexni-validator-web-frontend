@@ -84,14 +84,18 @@ export class NewValidationComponent implements OnInit {
 
 
       const formData = new FormData();
+      //formData.append("file", file);
+      formData.append("dmf-type", 'mon')
+      formData.append("preferred-dmf-version", 'mon_1.0')
+      formData.append("forced-dmf-version", 'mon_1.2')
       formData.append("file", file);
-      formData.append("prefered-dmf", 'mon_1.2')
       console.log(formData);
 
       //this.formData.append("file", file);
       //this.formData.append("prefered-dmf", 'mon_1.2')
 
       //console.log(this.formData);
+      console.log(formData);
 
       //const upload$ = this.http.post("/api/thumbnail-upload", formData);
       //upload$.subscribe();

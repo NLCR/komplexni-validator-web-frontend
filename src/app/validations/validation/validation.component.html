@@ -25,17 +25,32 @@
         <button (click)="cancelValidation()">zrušit</button>
         <br>
         <div *ngIf="extractionLogAvailable()">
-            <a  mat-flat-button color="primary" [href]="extractionLogUrl()">
+            <a mat-flat-button color="primary" [href]="extractionLogUrl()">
                 <mat-icon>download</mat-icon>
                 stáhnout log extrakce
             </a>
         </div>
-        <br>
+        <!-- <br>
         <div *ngIf="executionLogAvailable()">
             <a  mat-flat-button color="primary" [href]="executionLogUrl()">
                 <mat-icon>download</mat-icon>
                 stáhnout log validace
             </a>
+        </div> -->
+        <br>
+        <div *ngIf="validationLogTxtAvailable()">
+            <a mat-flat-button color="primary" [href]="validationLogTxtUrl()">
+                <mat-icon>download</mat-icon>
+                stáhnout log validace (txt)
+            </a>
         </div>
+        <br>
+        <div *ngIf="validationLogXmlAvailable()">
+            <a mat-flat-button color="primary" [href]="validationLogXmlUrl()">
+                <mat-icon>download</mat-icon>
+                stáhnout log validace (xml)
+            </a>
+        </div>
+
     </div>
 </div>
