@@ -30,5 +30,12 @@
                 stáhnout log extrakce
             </a>
         </div>
+        <br>
+        <div *ngIf="executionLogAvailable()">
+            <a  mat-flat-button color="primary" [href]="executionLogUrl()">
+                <mat-icon>download</mat-icon>
+                stáhnout log validace
+            </a>
+        </div>
     </div>
 </div>
