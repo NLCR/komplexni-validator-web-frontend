@@ -14,15 +14,19 @@ export class NavbarComponent implements OnInit {
   }
 
   getThumbnail() {
-    return this.userService?.socialUser?.photoUrl;
+    return this.userService?.getSocialUser().photoUrl;
   }
 
   isThumbnailAvailable() {
-    return this.userService?.socialUser;
+    return this.userService?.getSocialUser();
   }
 
   isAdmin() {
-    return this.userService.isAdmin();
+    return this.userService.isLoggedIn() && this.userService.isAdmin();
+  }
+
+  isLoggedIn() {
+    return this.userService.isLoggedIn();
   }
 
 }

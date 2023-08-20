@@ -5,7 +5,7 @@
     </a>
   </div>
   <div>
-    <div class="app-navbar-item">
+    <div class="app-navbar-item" *ngIf="isLoggedIn()">
       <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item-a">Validace</a>
     </div>
     <div class="app-navbar-item" *ngIf="isAdmin()">
@@ -20,10 +20,10 @@
     <!-- <div class="app-navbar-item">
       <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a">Uživatel</a>
     </div> -->
-    <div class="app-navbar-item">
+    <div class="app-navbar-item" *ngIf="isLoggedIn()">
       <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a">
-        <img *ngIf="isThumbnailAvailable()" src="{{getThumbnail()}}" class="app-navbar-avatar">
-        <div *ngIf="!isThumbnailAvailable()">Přihlášení</div>
+        <img *ngIf="isThumbnailAvailable()" src="{{getThumbnail()}}" class="app-navbar-avatar" referrerpolicy="no-referrer">
+        <!-- <div *ngIf="!isThumbnailAvailable()">Přihlášení</div> -->
       </a>
 
     </div>

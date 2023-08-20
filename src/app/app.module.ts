@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -27,6 +27,11 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
+import { InitializerService } from './services/initializer.service';
+
+export function initApp(initializerService: InitializerService) {
+  return () => initializerService.initialize();
+}
 
 
 @NgModule({
@@ -59,10 +64,18 @@ import { UsersComponent } from './users/users.component';
     GoogleSigninButtonModule
   ],
   providers: [
+    InitializerService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      deps: [InitializerService],
+      multi: true
+    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: true, //TODO:?
+        //autoLogin: true, //TODO:?
+        autoLogin: false, //TODO:?
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
@@ -72,7 +85,7 @@ import { UsersComponent } from './users/users.component';
                 //scope: 'email',
                 //ux_mode: 'redirect',
                 //plugin_name: 'komplexnivalidatorweb', //https://github.com/abacritt/angularx-social-login/issues/504#issuecomment-1143312259
-                //oneTapEnabled: false, // default is true
+                oneTapEnabled: false, // default is true
               }
             )
           },
@@ -80,6 +93,8 @@ import { UsersComponent } from './users/users.component';
           //   id: FacebookLoginProvider.PROVIDER_ID,
           //   provider: new FacebookLoginProvider('clientId')
           // }
+
+
         ],
         onError: (err) => {
           console.error(err);

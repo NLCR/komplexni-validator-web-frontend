@@ -1,19 +1,22 @@
 <div class="app-page-user">
 
 
-    <div style="background-color: antiquewhite; padding: 20px; margin: 10px;" hidden>
+    <!-- - <div style="background-color: antiquewhite; padding: 20px; margin: 10px;" hidden>
         <h2>Test section</h2>
         <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
             Přihlásit se pomocí Google
         </button>
         <br>
-        <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button> -->
-        <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'" [theme]="'outline'"></asl-google-signin-button> -->
-        <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
-            [theme]="'outline'"></asl-google-signin-button> -->
         <br>
-        <!-- <button (click)="refreshToken()">Refresh token</button> -->
-    </div>
+    </div> -->
+
+
+    <!-- <button (click)="refreshToken()">Refresh token</button> -->
+    <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button> -->
+    <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'" [theme]="'outline'"></asl-google-signin-button> -->
+    <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
+            [theme]="'outline'"></asl-google-signin-button> -->
+
 
 
     <!-- <div *ngIf="!getSocialUser()"> -->
@@ -32,11 +35,10 @@
     </div>
 
     <div *ngIf="getSocialUser()" class="app-user-info">
-        <!-- YEAH, SOCIAL TOKEN PRESEN -->
         <h3>{{ getSocialUser().name }}</h3>
 
         <div *ngIf="getSocialUser()?.photoUrl">
-            <img src="{{ getSocialUser().photoUrl }}">
+            <img src="{{ getSocialUser().photoUrl }}" referrerpolicy="no-referrer">
         </div>
 
         <p>{{ getSocialUser().email }}</p>
@@ -51,6 +53,8 @@
             Odhlásit se
         </button>
     </div>
+
+
     <!-- 
     &nbsp;
     <button (click)="test()" mat-raised-button class="google-login-btn">Test </button> -->

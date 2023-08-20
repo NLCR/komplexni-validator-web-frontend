@@ -15,18 +15,35 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socialAuthService.initState.subscribe(initState => {
-      console.log('initState: ' + initState)
-      //this.refreshToken();
-    })
+    const init = false;
+    if (init) {
 
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log("auth state changed");
-      console.log(user)
-      this.userService.socialUser = user;
-      this.fetchBackendUser(user);
-      //this.refreshToken();
-    });
+      const user = this.userService.getSocialUser();
+      if (user) {
+        console.log("user found in local storage");
+        this.fetchBackendUser(user);
+      } else {
+        console.log("user NOT found in local storage");
+
+
+
+        this.socialAuthService.initState.subscribe(initState => {
+          console.log('initState: ' + initState)
+          //this.refreshToken();
+        })
+
+        this.socialAuthService.authState.subscribe((user) => {
+          console.log("socialAuthService.authState.subscribe()");
+          console.log(user);
+          console.log("auth state changed");
+          console.log(user)
+          //this.userService.socialUser = user;
+          this.userService.setSocialUser(user);
+          this.fetchBackendUser(user);
+          //this.refreshToken();
+        });
+      }
+    }
 
   }
 
@@ -41,11 +58,13 @@ export class UserComponent implements OnInit {
   }
 
   getSocialUser() {
-    return this.userService.socialUser;
+    //return this.userService.socialUser;
+    return this.userService.getSocialUser();
   }
 
   getBackendUser() {
-    return this.userService.backendUser;
+    //return this.userService.backendUser;
+    return this.userService.getBackendUser();
   }
 
   refreshToken() {
@@ -54,11 +73,14 @@ export class UserComponent implements OnInit {
   }
 
   logout() {
-    this.socialAuthService.signOut(true);
+    //this.socialAuthService.signOut(true);
+    this.userService.clear();
+    this.router.navigate(['about']);
   }
 
   test() {
-    this.fetchBackendUser(this.userService.socialUser);
+    //this.fetchBackendUser(this.userService.socialUser);
+    this.fetchBackendUser(this.userService.getSocialUser());
   }
 
   fetchBackendUser(user: any) {
@@ -66,7 +88,8 @@ export class UserComponent implements OnInit {
     console.log(user);
     if (user) {
       this.backend.updateAndVerifyUser(user.idToken).subscribe(backendUser => {
-        this.userService.backendUser = backendUser;
+        //this.userService.backendUser = backendUser;
+        this.userService.setBackendUser(backendUser);
         console.log("fetchBackendUser(): backendUser: ");
         console.log(backendUser);
       });
