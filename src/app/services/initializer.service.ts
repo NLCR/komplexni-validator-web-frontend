@@ -17,7 +17,7 @@ export class InitializerService {
 
             if (user) {
                 this.userService.setSocialUser(user);
-                this.backend.updateAndVerifyUser(user.idToken).subscribe(result => {
+                this.backend.updateAndVerifyUser().subscribe(result => {
                     //console.log(result);
                     this.userService.setBackendUser(result);
                     //this.router.navigate(['user']);

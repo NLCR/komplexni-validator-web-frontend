@@ -2,7 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -28,6 +28,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 import { InitializerService } from './services/initializer.service';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 export function initApp(initializerService: InitializerService) {
   return () => initializerService.initialize();
@@ -69,6 +70,11 @@ export function initApp(initializerService: InitializerService) {
       provide: APP_INITIALIZER,
       useFactory: initApp,
       deps: [InitializerService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true
     },
     {

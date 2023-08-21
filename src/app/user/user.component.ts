@@ -87,8 +87,7 @@ export class UserComponent implements OnInit {
     console.log("fetchBackendUser(): ");
     console.log(user);
     if (user) {
-      this.backend.updateAndVerifyUser(user.idToken).subscribe(backendUser => {
-        //this.userService.backendUser = backendUser;
+      this.backend.updateAndVerifyUser().subscribe(backendUser => {
         this.userService.setBackendUser(backendUser);
         console.log("fetchBackendUser(): backendUser: ");
         console.log(backendUser);

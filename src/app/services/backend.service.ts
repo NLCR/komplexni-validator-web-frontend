@@ -131,9 +131,9 @@ export class BackendService {
   }
 
   //TODO: prejmenovat
-  updateAndVerifyUser(idToken: string): Observable<any> {
+  updateAndVerifyUser(): Observable<any> {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
-    return this.put(`/kv-user-service/api/users/authenticated`, idToken, options)
+    return this.put(`/kv-user-service/api/users/authenticated`, null)
       .pipe(
         //delay(500),
         tap(response => {

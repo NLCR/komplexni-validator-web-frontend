@@ -26,7 +26,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     if (this.userService.isLoggedIn()) {
-      return path == 'about' || path == 'user' || path == 'validations';
+      return path == 'about' || path == 'user' || path == 'validations' || path == 'validations/new';
     } else {
       return path == 'about';
     }

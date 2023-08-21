@@ -28,13 +28,15 @@ export class AboutComponent implements OnInit {
       console.log(user);
       if (user) {
         this.userService.setSocialUser(user);
-        this.backend.updateAndVerifyUser(user.idToken).subscribe(result => {
+        this.backend.updateAndVerifyUser().subscribe(result => {
           console.log(result);
           this.userService.setBackendUser(result);
-          this.router.navigate(['validations']);
+          //this.router.navigate(['validations']);
         });
       }
     });
+
+
 
 
     //console.log("auth state changed");
@@ -44,6 +46,12 @@ export class AboutComponent implements OnInit {
     //this.fetchBackendUser(user);
     //this.refreshToken();
 
+  }
+
+  testRequest() {
+    this.backend.getQuotas().subscribe(result => {
+      console.log(result);
+    })
   }
 
   clearUserServiceData() {
