@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+
 //TODO: fix?
 import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
 import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
@@ -60,6 +63,8 @@ export function initApp(initializerService: InitializerService) {
     MatToolbarModule,
     MatProgressBarModule,
     MatIconModule,
+    MatButtonModule,
+    MatCardModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule

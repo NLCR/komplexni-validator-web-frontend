@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppSettingsService } from 'src/app/services/app-settings.service';
@@ -13,7 +14,7 @@ export class ValidationComponent implements OnInit {
   id = "";
   validation = undefined;
 
-  constructor(private backend: BackendService, private router: Router, private route: ActivatedRoute, private appSettings: AppSettingsService) { }
+  constructor(private backend: BackendService, private router: Router, private route: ActivatedRoute, private appSettings: AppSettingsService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -27,6 +28,10 @@ export class ValidationComponent implements OnInit {
       this.validation = result;
       console.log(result);
     })
+  }
+
+  canBeCanceled() {
+    return false; //TODO
   }
 
   cancelValidation() {
@@ -70,10 +75,6 @@ export class ValidationComponent implements OnInit {
     }
   }
 
-  executionLogUrl() {
-    return this.backend.getExecutionLogUrl(this.validation!['id']);
-  }
-
   validationLogTxtAvailable() {
     if (!this.validation) return false;
     switch (this.validation['state']) {
@@ -101,12 +102,55 @@ export class ValidationComponent implements OnInit {
     }
   }
 
-  validationLogTxtUrl() {
-    return this.backend.getValidationLogTxtUrl(this.validation!['id']);
+  downloadExtractionLogTxt() {
+    //console.log(this.validation);
+    const packageName = this.validation!['packageName'];
+    const validationId = this.validation!['id'];
+    const url = this.backend.getExtractionLogUrl(validationId)
+    this.downloadFile(url).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'text/plain' });
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `extraction_${packageName}_${validationId}_log.txt`
+      link.click();
+      URL.revokeObjectURL(downloadUrl);
+    });
   }
 
-  validationLogXmlUrl() {
-    return this.backend.getValidationLogXmlUrl(this.validation!['id']);
+  downloadValidationLogTxt() {
+    //console.log(this.validation);
+    const packageName = this.validation!['packageName'];
+    const validationId = this.validation!['id'];
+    const url = this.backend.getValidationLogTxtUrl(validationId)
+    this.downloadFile(url).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'text/plain' });
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `validation_${packageName}_${validationId}_log.txt`
+      link.click();
+      URL.revokeObjectURL(downloadUrl);
+    });
   }
 
+  downloadValidationLogXml() {
+    //console.log(this.validation);
+    const packageName = this.validation!['packageName'];
+    const validationId = this.validation!['id'];
+    const url = this.backend.getValidationLogXmlUrl(validationId)
+    this.downloadFile(url).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'application/xml' });
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `validation_${packageName}_${validationId}_log.xml`
+      link.click();
+      URL.revokeObjectURL(downloadUrl);
+    });
+  }
+
+  downloadFile(url: string) {
+    return this.http.get(url, { responseType: 'blob' });
+  }
 }

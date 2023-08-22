@@ -1,56 +1,74 @@
 <div class="app-page-validation">
     <div *ngIf="validation">
-        <div>
-            <div>id: {{validation['id']}}</div>
-            <div>ownerId: {{validation['ownerId']}}</div>
-            <div>state: {{validation['state']}}</div>
-            <div>priority: {{validation['priority']}}</div>
-            <div>note: {{validation['note']}}</div>
-        </div>
-
+        <mat-card class="mat-card">
+            <mat-card-header>
+                <mat-card-title>Přehled</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngIf="validation['id']">id: {{validation['id']}}</div>
+                <div *ngIf="validation['ownerId']">vlastník: {{validation['ownerId']}}</div>
+                <div *ngIf="validation['state']">stav: {{validation['state']}}</div>
+                <div *ngIf="validation['packageName']">jméno balíčku: {{validation['packageName']}}</div>
+                <div *ngIf="validation['packageSizeMB']">velikost balíčku: {{validation['packageSizeMB']}} MB</div>
+                <div *ngIf="validation['note']">poznámka: {{validation['note']}}</div>
+            </mat-card-content>
+        </mat-card>
         <br>
+        <mat-card class="mat-card">
+            <mat-card-header>
+                <mat-card-title>Parametry validace</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngIf="validation['dmfType']">typ DMF: {{validation['dmfType']}}</div>
+                <div *ngIf="validation['forcedDmfVersion']">vynucená verze DMF: {{validation['forcedDmfVersion']}}</div>
+                <div *ngIf="validation['preferredDmfVersion']">preferovaná verze DMF:
+                    {{validation['preferredDmfVersion']}}
+                </div>
+                <div *ngIf="validation['priority']">priorita: {{validation['priority']}}</div>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card class="mat-card">
+            <mat-card-header>
+                <mat-card-title>Časové známky</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngIf="validation['tsCreated']">nahráno: {{validation['tsCreated']}}</div>
+                <div *ngIf="validation['tsScheduled']">naplánováno: {{validation['tsScheduled']}}</div>
+                <div *ngIf="validation['tsStarted']">spuštěno: {{validation['tsStarted']}}</div>
+                <div *ngIf="validation['tsEnded']">ukončeno: {{validation['tsEnded']}}</div>
+            </mat-card-content>
+        </mat-card>
 
         <div>
-            <h3>časové známky</h3>
-            <div *ngIf="validation['tsCreated']">created: {{validation['tsCreated']}}</div>
-            <div *ngIf="validation['tsScheduled']">scheduled: {{validation['tsScheduled']}}</div>
-            <div *ngIf="validation['tsStarted']">started: {{validation['tsStarted']}}</div>
-            <div *ngIf="validation['tsEnded']">ended: {{validation['tsEnded']}}</div>
-        </div>
-    </div>
+            <div *ngIf="canBeCanceled()" class="app-page-validation-button-container">
+                <button color="primary" mat-raised-button (click)="cancelValidation()">
+                    <mat-icon>cancel</mat-icon>
+                    zrušit</button>
+            </div>
 
-    <br>
-    <div>
-        <!-- TODO: panel s tlacitky -->
-        <button (click)="cancelValidation()">zrušit</button>
-        <br>
-        <div *ngIf="extractionLogAvailable()">
-            <a mat-flat-button color="primary" [href]="extractionLogUrl()">
-                <mat-icon>download</mat-icon>
-                stáhnout log extrakce
-            </a>
-        </div>
-        <!-- <br>
+            <div *ngIf="extractionLogAvailable()" class="app-page-validation-button-container">
+                <button mat-stroked-button color="primary" (click)="downloadExtractionLogTxt()">
+                    <mat-icon>download</mat-icon>
+                    stáhnout log extrakce</button>
+            </div>
+            <!-- <br>
         <div *ngIf="executionLogAvailable()">
             <a  mat-flat-button color="primary" [href]="executionLogUrl()">
                 <mat-icon>download</mat-icon>
                 stáhnout log validace
             </a>
         </div> -->
-        <br>
-        <div *ngIf="validationLogTxtAvailable()">
-            <a mat-flat-button color="primary" [href]="validationLogTxtUrl()">
-                <mat-icon>download</mat-icon>
-                stáhnout log validace (txt)
-            </a>
-        </div>
-        <br>
-        <div *ngIf="validationLogXmlAvailable()">
-            <a mat-flat-button color="primary" [href]="validationLogXmlUrl()">
-                <mat-icon>download</mat-icon>
-                stáhnout log validace (xml)
-            </a>
-        </div>
+            <div *ngIf="validationLogTxtAvailable()" class="app-page-validation-button-container">
+                <button mat-stroked-button color="primary" (click)="downloadValidationLogTxt()">
+                    <mat-icon>download</mat-icon>
+                    stáhnout log validace (txt)</button>
+            </div>
+            <div *ngIf="validationLogXmlAvailable()" class="app-page-validation-button-container">
+                <button mat-stroked-button color="primary" (click)="downloadValidationLogXml()">
+                    <mat-icon>download</mat-icon>
+                    stáhnout log validace (xml)</button>
+            </div>
 
+        </div>
     </div>
-</div>

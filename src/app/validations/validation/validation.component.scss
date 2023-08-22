@@ -1,3 +1,21 @@
 .app-page-validation {
-    margin: 8px;
+    background-color: #fdfdfd;
+    padding: 16px;
+    min-height: 1200px;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.app-page-validation-button-container {
+    margin: 4px;
+    padding: 4px;
+}
+
+mat-card-header {
+    margin-bottom: 8px;
+}
+
+.mat-card {
+    max-width: 400px;
 }
