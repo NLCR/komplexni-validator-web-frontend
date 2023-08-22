@@ -5,12 +5,6 @@
     font-size: large;
 }
 
-.app-navbar-avatar {
-    height: 28px;
-    margin: -10px;
-    vertical-align: middle;
-}
-
 .app-navbar-item {
     display: inline;
     padding: 10px;
@@ -21,4 +15,27 @@
     color: white;
     margin: 4px;
     font-size: medium;
+}
+
+.profile-image-container {
+    display: inline;
+    //padding: 10px;
+    //margin: 4px;
+    border-radius: 50%; 
+}
+
+.app-navbar-avatar {
+    width: 35px; 
+    height: 35px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #fff; 
+    vertical-align: middle;
+}
+
+.app-navbar-avatar2 {
+    height: 28px;
+    margin: -10px;
+    vertical-align: middle;
+    border-radius: 50%; 
 }
