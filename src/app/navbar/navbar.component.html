@@ -6,7 +6,10 @@
   </div>
   <div>
     <div class="app-navbar-item" *ngIf="isLoggedIn()">
-      <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item-a">Validace</a>
+      <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item-a">Přehled validací</a>
+    </div>
+    <div class="app-navbar-item" *ngIf="isLoggedIn()">
+      <a routerLink="/validations/new" routerLinkActive="active" mat-button class="app-navbar-item-a">Validovat</a>
     </div>
     <div class="app-navbar-item" *ngIf="isAdmin()">
       <a routerLink="/quotas" routerLinkActive="active" mat-button class="app-navbar-item-a">Kvóty</a>
