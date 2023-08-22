@@ -11,7 +11,9 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 //TODO: fix?
@@ -73,6 +75,7 @@ export function initApp(initializerService: InitializerService) {
     MatCardModule,
     MatChipsModule,
     MatTableModule,
+    MatPaginatorModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule
