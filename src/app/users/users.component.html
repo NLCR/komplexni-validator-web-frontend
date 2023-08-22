@@ -1,5 +1,43 @@
 <div class="app-page-users">
 
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Jméno</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="avatar">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <img src="{{element['pictureUrl']}}" style="width:20px" referrerpolicy="no-referrer">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="admin">
+            <th mat-header-cell *matHeaderCellDef>Admin</th>
+            <td mat-cell *matCellDef="let element"> {{element.admin}}
+                <button mat-raised-button (click)="setAdmin(element, !element.admin)">změnit</button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="verified">
+            <th mat-header-cell *matHeaderCellDef>Ověřený</th>
+            <td mat-cell *matCellDef="let element"> {{element.verified}}
+                <button mat-raised-button (click)="setVerified(element, !element.verified)">změnit</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- 
     <div class="app-mt-4 app-mb-4">
         <h3 class="app-mt-0">Uživatelé</h3>
         <button (click)="reloadUsers()">Načíst znovu</button>
@@ -38,11 +76,12 @@
                         <ng-container *ngIf="user['verified']">ověřený</ng-container>
                         <ng-container *ngIf="!user['verified']" style="display: block;">neověřený</ng-container>
                         &nbsp;
-                        <button (click)="verifyUser(user)">ověřit</button>
+                        <button *ngIf="!user['verified']" (click)="setVerified(user, true)">přidat</button>
+                        <button *ngIf="user['verified']" (click)="setVerified(user, false)">odebrat</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 
 </div>

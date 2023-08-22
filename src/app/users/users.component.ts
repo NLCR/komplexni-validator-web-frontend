@@ -10,6 +10,7 @@ import { BackendService } from '../services/backend.service';
 export class UsersComponent implements OnInit {
 
   users = [];
+  displayedColumns: string[] = ['avatar', 'name', 'email', 'admin', 'verified']; //poradi sloupcu v tabulce
 
   constructor(private backend: BackendService, private router: Router) { }
 
@@ -41,9 +42,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  verifyUser(user: any) {
+  setVerified(user: any, verified: boolean) {
     const data = {
-      verified: true
+      verified: verified
     }
     this.backend.updateUser(user.id, data).subscribe(result => {
       this.loadUsers();
