@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatTableModule} from '@angular/material/table';
+
 
 //TODO: fix?
 import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
@@ -70,6 +72,7 @@ export function initApp(initializerService: InitializerService) {
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
+    MatTableModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule

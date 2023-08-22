@@ -1,47 +1,55 @@
 <div class="app-page-validations">
 
-    <div class="app-mt-4 app-mb-4">
-        <h3 class="app-mt-0">Validace</h3>
-        <button (click)="reloadValidations()">Načíst znovu</button>
-        &nbsp;
-        <button (click)="routeToNewValidationForm()">Nahrát balíček</button>
-        <table class="app-table" *ngIf="validations">
-            <tbody>
-                <th>created</th>
-                <th>id</th>
-                <th>state</th>
-                <th>ownerId</th>
-                <th>priority</th>
-                <th>actions</th>
+    <table mat-table [dataSource]="validations" class="mat-elevation-z8">
 
-                <tr *ngFor="let validation of validations" class="app-mb-1">
-                    <td class="app-col-action">
-                        {{validation['tsCreated']}}
-                    </td>
-                    <td class="app-col-action">
-                        {{validation['id']}}
-                    </td>
-                    <td class="app-col-action">
-                        {{validation['state']}}
-                    </td>
-                    <td class="app-col-action">
-                        {{validation['ownerId']}}
-                    </td>
-                    <td class="app-col-action">
-                        {{validation['priority']}}
-                    </td>
-                    <td>
-                        <!-- <a class="app-btn-warn" (click)="onRemoveLicense(license)"
-                  [matTooltip]="'button.removeLicense' | translate">
-                  <mat-icon>cancel</mat-icon>
-                </a> -->
-                        <button (click)="routeToValidation(validation['id'])">detail</button>
-                        &nbsp;
-                        <button (click)="cancelValidation(validation)">zrušit </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element"><button mat-flat-button
+                    (click)="routeToValidation(element.id)">{{element.id}}</button> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>Stav</th>
+            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner">
+            <th mat-header-cell *matHeaderCellDef>Vlastník</th>
+            <td mat-cell *matCellDef="let element"> {{element.ownerId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef>Priorita</th>
+            <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="packageName">
+            <th mat-header-cell *matHeaderCellDef>Název</th>
+            <td mat-cell *matCellDef="let element">{{element.packageName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="packageSize">
+            <th mat-header-cell *matHeaderCellDef>Velikost</th>
+            <td mat-cell *matCellDef="let element">{{element.packageSizeMB}} MB</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tsCreated">
+            <th mat-header-cell *matHeaderCellDef>Nahráno</th>
+            <td mat-cell *matCellDef="let element">{{element.tsCreated|date:'yyyy/MM/dd HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tsEnded">
+            <th mat-header-cell *matHeaderCellDef>Dokončeno</th>
+            <td mat-cell *matCellDef="let element">{{element.tsEnded|date:'yyyy/MM/dd HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dmfType">
+            <th mat-header-cell *matHeaderCellDef>Typ DMF</th>
+            <td mat-cell *matCellDef="let element">{{element.dmfType}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 
 </div>

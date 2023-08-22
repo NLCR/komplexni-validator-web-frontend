@@ -9,8 +9,10 @@ import { BackendService } from '../services/backend.service';
 })
 export class ValidationsComponent implements OnInit {
 
-  validations = [];
+  displayedColumns: string[] = ['id', 'state', 'owner', 'priority', 'packageName', 'packageSize', 'tsCreated', 'tsEnded', 'dmfType']; //poradi sloupcu v tabulce
 
+  validations = [];
+  
   constructor(private backend: BackendService, private router: Router) { }
 
   ngOnInit(): void {
@@ -20,7 +22,7 @@ export class ValidationsComponent implements OnInit {
   loadValidations() {
     this.backend.getValidations().subscribe(result => {
       this.validations = result;
-      //console.log(result);
+      console.log(result);
     })
   }
 
@@ -33,6 +35,7 @@ export class ValidationsComponent implements OnInit {
   }
 
   routeToValidation(id: string) {
+    //this.router.navigate(['/', 'validations', id]);
     this.router.navigate(['/', 'validations', id]);
   }
 
