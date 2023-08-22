@@ -1,62 +1,40 @@
 <div class="app-page-user">
 
 
-    <!-- - <div style="background-color: antiquewhite; padding: 20px; margin: 10px;" hidden>
-        <h2>Test section</h2>
-        <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
-            Přihlásit se pomocí Google
-        </button>
-        <br>
-        <br>
-    </div> -->
+    <mat-card class="mat-card">
+        <mat-card-header>
+            <mat-card-title>{{ getSocialUser().name }}</mat-card-title>
+            <mat-card-subtitle>{{ getSocialUser().email }}</mat-card-subtitle>
+            <img mat-card-avatar src="{{ getSocialUser().photoUrl }}">
+        </mat-card-header>
+        
+        <mat-card-content>
+            <div style="min-height: 20px;"></div>
+
+            <button *ngIf="isVerified()" mat-flat-button color="primary" style="margin-right: 8px;">
+                <mat-icon>done</mat-icon>
+                ověřený uživatel</button>
+
+            <button *ngIf="!isVerified()" mat-flat-button color="primary" disabled style="margin-right: 8px;">
+                <mat-icon>close</mat-icon>
+                není ověřený</button>
+
+            <button *ngIf="isAdmin()" mat-flat-button color="primary">
+                <mat-icon>done</mat-icon>
+                admin</button>
+
+            <button *ngIf="!isAdmin()" mat-flat-button color="primary" disabled="">
+                <mat-icon>close</mat-icon>
+                není admin</button>
+            <div style="min-height: 50px;"></div>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+            <button mat-stroked-button (click)="logout()" color="primary">Odhlásit se</button>
+        </mat-card-actions>
+
+    </mat-card>
 
 
-    <!-- <button (click)="refreshToken()">Refresh token</button> -->
-    <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button> -->
-    <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'" [theme]="'outline'"></asl-google-signin-button> -->
-    <!-- <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
-            [theme]="'outline'"></asl-google-signin-button> -->
-
-
-
-    <!-- <div *ngIf="!getSocialUser()"> -->
-    <!-- <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
-            Přihlásit se pomocí Google
-        </button> -->
-    <!-- NO, SOCIAL TOKEN NULL
-    </div> -->
-
-
-
-
-    <div *ngIf="!getSocialUser()">
-        <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
-            [theme]="'outline'"></asl-google-signin-button>
-    </div>
-
-    <div *ngIf="getSocialUser()" class="app-user-info">
-        <h3>{{ getSocialUser().name }}</h3>
-
-        <div *ngIf="getSocialUser()?.photoUrl">
-            <img src="{{ getSocialUser().photoUrl }}" referrerpolicy="no-referrer">
-        </div>
-
-        <p>{{ getSocialUser().email }}</p>
-
-        <div *ngIf="getBackendUser()">
-            <p>admin: {{ getBackendUser().admin }}</p>
-            <p>verified: {{ getBackendUser().verified }}</p>
-        </div>
-
-        &nbsp;
-        <button (click)="logout()" mat-raised-button class="google-login-btn">
-            Odhlásit se
-        </button>
-    </div>
-
-
-    <!-- 
-    &nbsp;
-    <button (click)="test()" mat-raised-button class="google-login-btn">Test </button> -->
 
 </div>

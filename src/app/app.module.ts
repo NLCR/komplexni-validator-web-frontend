@@ -9,7 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 //TODO: fix?
 import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
@@ -32,6 +33,9 @@ import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 import { InitializerService } from './services/initializer.service';
 import { AuthInterceptor } from './services/auth-interceptor';
+
+import { DatePipe } from '@angular/common';
+
 
 export function initApp(initializerService: InitializerService) {
   return () => initializerService.initialize();
@@ -65,6 +69,7 @@ export function initApp(initializerService: InitializerService) {
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule

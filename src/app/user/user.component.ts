@@ -73,9 +73,17 @@ export class UserComponent implements OnInit {
   }
 
   logout() {
-    //this.socialAuthService.signOut(true);
+    this.socialAuthService.signOut(true);
     this.userService.clear();
     this.router.navigate(['about']);
+  }
+
+  isAdmin() {
+    return this.userService.getBackendUser()['admin'];
+  }
+
+  isVerified() {
+    return this.userService.getBackendUser()['verfied'];
   }
 
   test() {
@@ -84,13 +92,13 @@ export class UserComponent implements OnInit {
   }
 
   fetchBackendUser(user: any) {
-    console.log("fetchBackendUser(): ");
-    console.log(user);
+    //console.log("fetchBackendUser(): ");
+    //console.log(user);
     if (user) {
       this.backend.updateAndVerifyUser().subscribe(backendUser => {
         this.userService.setBackendUser(backendUser);
-        console.log("fetchBackendUser(): backendUser: ");
-        console.log(backendUser);
+        //console.log("fetchBackendUser(): backendUser: ");
+        //console.log(backendUser);
       });
     }
   }
