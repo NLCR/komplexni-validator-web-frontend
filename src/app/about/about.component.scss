@@ -1,3 +1,16 @@
 .app-page-about {
-    margin: 8px;
+    background-color: #fdfdfd;
+    padding: 16px;
+    min-height: 1200px;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+mat-card-header {
+    margin-bottom: 8px;
+}
+
+.mat-card {
+    max-width: 1200px;
 }

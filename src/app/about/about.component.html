@@ -1,47 +1,63 @@
 <div class="app-page-about">
 
-    <h3>Informace</h3>
+    <mat-card class="mat-card">
+        <mat-card-header>
+            <mat-card-title>Webová verze Komplexního validátoru</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Et harum quidem rerum facilis est et expedita
+                distinctio. In enim a arcu imperdiet malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non
+                leo.
+                Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a
+                lectus.
+                Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id
+                lacus. Nam
+                libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+                placeat facere
+                possimus, omnis voluptas assumenda est, omnis dolor repellendus. Sed elit dui, pellentesque a, faucibus
+                vel,
+                interdum nec, diam. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit
+                anim id est laborum. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                eveniet
+                ut et voluptates repudiandae sint et molestiae non recusandae. Class aptent taciti sociosqu ad litora
+                torquent
+                per conubia nostra, per inceptos hymenaeos.
+            </p>
+        </mat-card-content>
+    </mat-card>
 
-    <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Et harum quidem rerum facilis est et expedita
-        distinctio. In enim a arcu imperdiet malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
-        Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus.
-        Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. Nam
-        libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere
-        possimus, omnis voluptas assumenda est, omnis dolor repellendus. Sed elit dui, pellentesque a, faucibus vel,
-        interdum nec, diam. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-        ut et voluptates repudiandae sint et molestiae non recusandae. Class aptent taciti sociosqu ad litora torquent
-        per conubia nostra, per inceptos hymenaeos.
-    </p>
+    <br>
+    <mat-card class="mat-card" *ngIf="!isLoggedIn()">
+        <mat-card-header>
+            <mat-card-title>Přihlášení</mat-card-title>
+            <mat-card-subtitle>Pro přístup k validacím je nutné se přihlásit</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
+                [theme]="'outline'"></asl-google-signin-button>
+        </mat-card-content>
+    </mat-card>
 
-    <p>
-        <button (click)="logUserServiceData()">LOG user-service data</button>
-        <br>
-        <button (click)="clearUserServiceData()">CLEAR user-service data</button>
-    </p>
-
-    <button (click)="testRequest()">Test</button>
-
-
-    <div *ngIf="!isLoggedIn()">
-        <h4>Pro spouštění validací je nutné se přihlásit</h4>
-        <!-- <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">Přihlásit se pomocí Google</button> -->
-        <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button> -->
-        <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
-            [theme]="'outline'"></asl-google-signin-button>
-    </div>
-
-
-    <!-- <div style="background-color: antiquewhite; padding: 20px; margin: 10px;">
-        <h2>Test section</h2>
-        <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">Přihlásit se pomocí Google</button>
-
-        <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
-        <br>
-        <asl-google-signin-button [type]="'standard'" [size]="'medium'" [text]="'signin_with'"
-            [theme]="'outline'"></asl-google-signin-button>
-        <br>
-    </div> -->
+    <br>
+    <mat-card class="mat-card" *ngIf="showDevButtons()">
+        <mat-card-header>
+            <mat-card-title>dev</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="app-page-validation-button-container">
+                <button mat-raised-button (click)="logUserServiceData()" color="warn">LOG user-service data</button>
+            </div>
+            <br>
+            <div class="app-page-validation-button-container">
+                <button mat-raised-button (click)="clearUserServiceData()" color="warn">CLEAR user-service data</button>
+            </div>
+            <br>
+            <div class="app-page-validation-button-container">
+                <button mat-raised-button (click)="testRequest()" color="warn">Test</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
 </div>

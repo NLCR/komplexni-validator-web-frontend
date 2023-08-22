@@ -37,6 +37,7 @@ export class AboutComponent implements OnInit {
     });
 
 
+  
 
 
     //console.log("auth state changed");
@@ -46,6 +47,10 @@ export class AboutComponent implements OnInit {
     //this.fetchBackendUser(user);
     //this.refreshToken();
 
+  }
+
+  showDevButtons(){
+    return false;
   }
 
   testRequest() {
