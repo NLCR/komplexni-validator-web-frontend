@@ -33,6 +33,24 @@ export class NewValidationComponent implements OnInit {
   }
 
   schedule(formData: any) {
+    console.log("schedule()");
+    console.log(formData)
+
+    const newFormData = new FormData();
+    newFormData.append("file", this.filesSelected[0]);
+    newFormData.append("note", this.note);
+    console.log(newFormData);
+
+    //console.log(this.formData)
+
+    //this.backend.createValidation(this.formData).subscribe(response => {
+      this.backend.createValidation(newFormData).subscribe(response => {
+      console.log(response);
+    })
+
+    //console.log(this.formData);
+
+
     // this.inProgress = true;
 
     // const pids = this.splitPids(this.pids);
@@ -71,10 +89,19 @@ export class NewValidationComponent implements OnInit {
 
 
   inProgress = false;
-  formData = new FormData();
+  //formData = new FormData();
+  formData : any;
+
+
+  fileSelected : File | null = null;
+
+  filesSelected: any;
+  note="blablablba"
 
   onFileSelected(event: any) {
+    console.log("onFileSelected()");
     const file: File = event.target.files[0];
+    this.filesSelected = event.target.files;
 
     if (file) {
       console.log(file)
@@ -83,26 +110,40 @@ export class NewValidationComponent implements OnInit {
       this.fileTooBig = file.size > 100 * 1024; //TODO: configurable
 
 
-      const formData = new FormData();
+      //const formData = new FormData();
+      this.formData = new FormData();
       //formData.append("file", file);
-      formData.append("dmf-type", 'mon')
-      formData.append("preferred-dmf-version", 'mon_1.0')
-      formData.append("forced-dmf-version", 'mon_1.2')
-      formData.append("file", file);
-      console.log(formData);
+      this.formData.append("dmf-type", 'mon')
+      this.formData.append("preferred-dmf-version", 'mon_1.0')
+      this.formData.append("forced-dmf-version", 'mon_1.2')
+      this.formData.append("note", 'blabla')
+      this.formData.append("file", file);
+
+      this.fileSelected = file;
+
+
+      console.log(this.formData);
 
       //this.formData.append("file", file);
       //this.formData.append("prefered-dmf", 'mon_1.2')
 
       //console.log(this.formData);
-      console.log(formData);
+      //console.log(formData);
 
       //const upload$ = this.http.post("/api/thumbnail-upload", formData);
       //upload$.subscribe();
 
-      this.backend.createValidation(formData).subscribe(response => {
-        console.log(response);
-      })
+
+      //TODO: ready pro nahrani
+
+      console.log("onFileSelected() KONEC")
+      console.log(this.formData);
+      //this.formData = formData;
+
+
+      // this.backend.createValidation(formData).subscribe(response => {
+      //   console.log(response);
+      // })
 
     }
 
@@ -113,5 +154,30 @@ export class NewValidationComponent implements OnInit {
     return !this.fileTooBig;
   }
 
+
+  // //NEW
+
+  // selectedFile: File | null = null;
+
+  // uploadFile() {
+  //   if (this.selectedFile) {
+  //     console.log("uploadFile");
+  //     const formData2 = new FormData();
+  //     formData2.append('file', this.selectedFile);
+  //     console.log(formData2)
+
+  //     // this.http.post('your-upload-url', formData)
+  //     //   .subscribe(
+  //     //     response => {
+  //     //       console.log('File uploaded successfully', response);
+  //     //       // Handle success
+  //     //     },
+  //     //     error => {
+  //     //       console.error('Error uploading file', error);
+  //     //       // Handle error
+  //     //     }
+  //     //   );
+  //   }
+  // }
 
 }
