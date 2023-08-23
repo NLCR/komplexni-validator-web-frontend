@@ -36,7 +36,7 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
 })
 export class ValidationsComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'packageName', 'dmfType', 'owner', 'state', 'packageSize', 'priority', 'tsCreated', 'tsEnded']; //poradi sloupcu v tabulce
+  displayedColumns: string[] = ['id', 'packageName', 'dmfType', 'owner', 'state', 'packageSize', 'priority', 'tsCreated', 'tsEnded', 'note']; //poradi sloupcu v tabulce
 
   validations: [] = [];
   validationsInTable = []
