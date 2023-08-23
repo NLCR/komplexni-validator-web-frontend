@@ -1,3 +1,13 @@
 .app-page-quotas {
-    margin: 8px;
+    background-color: #fdfdfd;
+    padding: 16px;
+    min-height: 1200px;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 650px;
+}
+
+table {
+    width: 100%;
 }

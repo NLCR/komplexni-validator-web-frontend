@@ -1,6 +1,27 @@
 <div class="app-page-quotas">
 
-    <div class="app-mt-4 app-mb-4">
+    <table mat-table [dataSource]="quotasArray" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="key">
+            <th mat-header-cell *matHeaderCellDef>Kvóta</th>
+            <td mat-cell *matCellDef="let element"> {{translateQuotaName(element.key)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef>Hodnota</th>
+            <td mat-cell *matCellDef="let element"> {{formatValue(element)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editButton">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> <button mat-stroked-button (click)="openUpdateQuotaDialog(element)"
+                    color="primary">Upravit</button> </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- <div class="app-mt-4 app-mb-4">
         <h3 class="app-mt-0">Kvóty</h3>
         <table class="app-table" *ngIf="getQuotas()">
             <tbody>
@@ -20,6 +41,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 
 </div>
