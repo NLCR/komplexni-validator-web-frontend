@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -76,6 +77,7 @@ export function initApp(initializerService: InitializerService) {
     MatChipsModule,
     MatTableModule,
     MatPaginatorModule,
+    MatListModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule

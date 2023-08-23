@@ -52,5 +52,15 @@ export class UsersComponent implements OnInit {
   }
 
 
+  isAdmin(user: any) {
+    return user.admin;
+
+  }
+
+  isVerifiedNotAdmin(user: any) {
+    return user.verified && !user.admin;
+  }
+
+
 
 }

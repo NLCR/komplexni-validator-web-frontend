@@ -1,6 +1,6 @@
 <div class="app-page-users">
 
-    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+    <!-- <table mat-table [dataSource]="users" class="mat-elevation-z8">
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Jméno</th>
@@ -35,7 +35,25 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    </table> -->
+
+    <mat-selection-list>
+        <!-- <div mat-subheader>Uzivatele</div> -->
+        <mat-list-item *ngFor="let user of users" style="padding: 15px;">
+            <img matListItemAvatar src="{{user['pictureUrl']}}" alt="{{user['name']}}">
+            <div matListItemTitle>{{user['name']}}</div>
+            <div matListItemLine>{{user['email']}}</div>
+            <div matListItemLine disableRipple="false" matRipple>
+                <mat-chip-listbox aria-label="admin" style="margin-top: -20px;">
+                    <!-- <mat-chip-option color="disabled" selectable="false">Registrovaný uživatel</mat-chip-option> -->
+                    <mat-chip-option color="primary" selected="{{isVerifiedNotAdmin(user)}}">Ověřený
+                        uživatel</mat-chip-option>
+                    <mat-chip-option color="warn" selected="{{isAdmin(user)}}">Administrátor</mat-chip-option>
+                </mat-chip-listbox>
+            </div>
+            <div matListItemLine style="margin-bottom: -20px;"></div>
+        </mat-list-item>
+    </mat-selection-list>
 
     <!-- 
     <div class="app-mt-4 app-mb-4">
