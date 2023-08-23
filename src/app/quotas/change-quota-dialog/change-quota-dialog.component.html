@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Upravit kvótu</h1>
+<div mat-dialog-content>
+    <p>key: {{getQuotaId()}}</p>
+    <p>value: {{getQuotaValue()}}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close cdkFocusInitial>Zavřít</button>
+    <button mat-button (click)="incrementAndSave()">+1 a Uložit</button>
+    <button mat-button (click)="decrementAndSave()" *ngIf="getQuotaValue()>=1">-1 a Uložit</button>
+</div>

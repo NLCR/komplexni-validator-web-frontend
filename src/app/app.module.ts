@@ -14,7 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 //TODO: fix?
@@ -40,6 +40,7 @@ import { InitializerService } from './services/initializer.service';
 import { AuthInterceptor } from './services/auth-interceptor';
 
 import { DatePipe } from '@angular/common';
+import { ChangeQuotaDialogComponent } from './quotas/change-quota-dialog/change-quota-dialog.component';
 
 
 export function initApp(initializerService: InitializerService) {
@@ -57,7 +58,8 @@ export function initApp(initializerService: InitializerService) {
     NewValidationComponent,
     ValidationComponent,
     UserComponent,
-    UsersComponent
+    UsersComponent,
+    ChangeQuotaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +80,7 @@ export function initApp(initializerService: InitializerService) {
     MatTableModule,
     MatPaginatorModule,
     MatListModule,
+    MatDialogModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule

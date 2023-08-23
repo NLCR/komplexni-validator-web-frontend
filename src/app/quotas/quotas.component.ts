@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../services/backend.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeQuotaDialogComponent } from './change-quota-dialog/change-quota-dialog.component';
 
 export interface Quota {
   name: string;
@@ -19,7 +21,7 @@ export class QuotasComponent implements OnInit {
 
   displayedColumns: string[] = ['key', 'value', 'editButton']; //poradi sloupcu v tabulce
 
-  constructor(private backend: BackendService) { }
+  constructor(private backend: BackendService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadQuotas();
@@ -27,8 +29,33 @@ export class QuotasComponent implements OnInit {
 
   openUpdateQuotaDialog(quota: any) {
     console.log(quota);
+    this.openDialog('0.2s', '0.2s', quota);
   }
 
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, quota: any): void {
+    console.log(quota)
+    const dialogRef = this.dialog.open(ChangeQuotaDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        quotaId: quota['key'],
+        quotaValue: quota['value']
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log("result: ");
+      console.log(result);
+      if (result) {
+        this.backend.setQuota(result.quotaId, result.quotaValue).subscribe(result => {
+          this.loadQuotas();
+        });
+      }
+    });
+  }
 
   loadQuotas() {
     this.backend.getQuotas().subscribe(result => {
