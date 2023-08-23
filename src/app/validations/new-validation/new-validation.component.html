@@ -32,36 +32,29 @@
             </mat-form-field>
         </p>
 
-        <!-- <input type="file" class="file-upload" onchange="console.log(event.target.files)"> -->
-
-
-
         <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept="application/zip">
         <div class="file-upload">
-            {{fileName || "Vyberte balík v souboru ZIP."}}
+            {{fileSelected?.name || "Vyberte balík v souboru ZIP."}}
             <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
                 <mat-icon>attach_file</mat-icon>
             </button>
         </div>
+        <div *ngIf="fileSelected">
+            velikost balíčku: {{getPackageSizeMB()}} MB
+        </div>
 
-
-
+        <!-- TODO: nastylovat -->
+        <div *ngIf="packageTooBig()">
+            Soubor {{fileSelected?.name}} je příliš velký. Maximální povolená velikost je {{maxPackageSizeMB}} MB.
+        </div>
 
         <div>
-            <!-- <button mat-flat-button  color="primary" type="submit" (click)="fileUpload.click()">Upload-test</button> -->
-            &nbsp;
-
-            <button mat-flat-button [disabled]="inProgress || !f.valid" color="primary" type="submit">Nahrát</button>
+            <button mat-flat-button [disabled]="!formIsValid()" color="primary" type="submit">Nahrát</button>
         </div>
 
 
     </form>
 
-
-    <!-- <form (ngSubmit)="uploadFile()" enctype="multipart/form-data">
-        <input type="file" (change)="onFileSelected($event)" />
-        <button type="submit">Upload File</button>
-      </form> -->
 
 
 </div>
