@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-new-validation',
@@ -10,11 +11,11 @@ import { BackendService } from 'src/app/services/backend.service';
 })
 export class NewValidationComponent implements OnInit {
 
-  constructor(private backend: BackendService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private backend: BackendService, private router: Router, private snackBar: MatSnackBar, private userService: UserService) { }
 
   waitingForBackend = false;
 
-  maxPackageSizeMB = 100000;
+  maxPackageSizeMB = 0;
 
   fileSelected: File | undefined;
   note = '';
@@ -27,12 +28,28 @@ export class NewValidationComponent implements OnInit {
   dmfAudioFonoVersions = ['audio_fono_0.3'];
   dmfAudioGramVersions = ['audio_gram_0.4', 'audio_gram_0.5'];
 
+  myValidationsActive = 0;
+  myValidationsInactive = 0;
+  myValidationsDeleted = 0;
+
+  userQuotasReached = false;
+  maxActivaValidationsForUnverifiedUser = 1;
+  maxInactivaValidationsForUnverifiedUser = 10;
+
+  maxActivaValidationsForVerifiedUser = 3;
+  maxInactivaValidationsForVerifiedUser = 30;
+  iAmAdmin = false;
+  iAmVerified = false;
+
   ngOnInit(): void {
     this.waitingForBackend = true;
     this.backend.getQuotas().subscribe(result => {
       this.maxPackageSizeMB = result.maxUploadSizeMB;
-      this.waitingForBackend = false;
-      //TODO: zjistit pocet mojich aktivnich validaci a podle toho omezit
+      this.backend.getValidationCounters().subscribe(result => {
+        console.log(result);
+        this.processCounters(result);
+        this.waitingForBackend = false;
+      });
     });
   }
 
@@ -67,6 +84,12 @@ export class NewValidationComponent implements OnInit {
         this.waitingForBackend = false;
       })
     }
+  }
+
+  test() {
+    this.backend.getValidationCounters().subscribe(result => {
+      console.log(result);
+    });
   }
 
   cleanForm() {
@@ -133,6 +156,82 @@ export class NewValidationComponent implements OnInit {
       case 'audio_gram':
         return this.dmfAudioGramVersions;
       default: return [];
+    }
+  }
+
+  processCounters(counters: any) {
+    if (counters['READY_FOR_EXTRACTION']) {
+      this.myValidationsActive += counters['READY_FOR_EXTRACTION'];
+    }
+    if (counters['TO_BE_EXTRACTED']) {
+      this.myValidationsActive += counters['TO_BE_EXTRACTED'];
+    }
+    if (counters['EXTRACTING']) {
+      this.myValidationsActive += counters['EXTRACTING'];
+    }
+    if (counters['READY_FOR_EXECUTION']) {
+      this.myValidationsActive += counters['READY_FOR_EXECUTION'];
+    }
+    if (counters['TO_BE_EXECUTED']) {
+      this.myValidationsActive += counters['TO_BE_EXECUTED'];
+    }
+    if (counters['EXECUTING']) {
+      this.myValidationsActive += counters['EXECUTING'];
+    }
+
+
+    if (counters['FINISHED']) {
+      this.myValidationsInactive += counters['FINISHED'];
+    }
+    if (counters['ERROR']) {
+      this.myValidationsInactive += counters['ERROR'];
+    }
+    if (counters['CANCELED']) {
+      this.myValidationsInactive += counters['CANCELED'];
+    }
+    if (counters['TO_BE_ARCHIVED']) {
+      this.myValidationsInactive += counters['TO_BE_ARCHIVED'];
+    }
+    if (counters['ARCHIVING']) {
+      this.myValidationsInactive += counters['ARCHIVING'];
+    }
+    if (counters['ARCHIVED']) {
+      this.myValidationsInactive += counters['ARCHIVED'];
+    }
+    if (counters['TO_BE_DELETED']) {
+      this.myValidationsInactive += counters['TO_BE_DELETED'];
+    }
+    if (counters['DELETING']) {
+      this.myValidationsInactive += counters['DELETING'];
+    }
+
+    if (counters['DELETED']) {
+      this.myValidationsDeleted += counters['DELETED'];
+    }
+
+    console.log(this.myValidationsActive);
+    console.log(this.myValidationsInactive);
+    console.log(this.myValidationsDeleted);
+
+    const user = this.userService.getBackendUser();
+    if (user.admin) {
+      this.iAmAdmin = true;
+      //nothing, can run as many quotas as possible
+    } else if (user.verified) {
+      this.iAmVerified = true;
+      if (this.myValidationsActive >= this.maxActivaValidationsForVerifiedUser) {
+        this.userQuotasReached = true;
+      }
+      if (this.myValidationsInactive >= this.maxInactivaValidationsForVerifiedUser) {
+        this.userQuotasReached = true;
+      }
+    } else {
+      if (this.myValidationsActive >= this.maxActivaValidationsForUnverifiedUser) {
+        this.userQuotasReached = true;
+      }
+      if (this.myValidationsInactive >= this.maxInactivaValidationsForUnverifiedUser) {
+        this.userQuotasReached = true;
+      }
     }
   }
 

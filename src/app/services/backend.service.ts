@@ -110,6 +110,16 @@ export class BackendService {
       );
   }
 
+  getValidationCounters(): Observable<any> {
+    return this.get(`/kv-validation-manager-service/api/validations/counters`)
+      .pipe(
+        //delay(500),
+        tap(response => {
+          //console.log(response)
+        })
+      );
+  }
+
   getValidation(id: string): Observable<any> {
     return this.get(`/kv-validation-manager-service/api/validations/${id}`)
       .pipe(

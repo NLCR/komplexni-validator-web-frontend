@@ -12,7 +12,8 @@
 
                     <mat-form-field>
                         <mat-label>Typ balíčku</mat-label>
-                        <mat-select (selectionChange)="onDmfTypeSelected($event)" [disabled]="waitingForBackend">
+                        <mat-select (selectionChange)="onDmfTypeSelected($event)"
+                            [disabled]="waitingForBackend || userQuotasReached">
                             <mat-option>Neurčeno</mat-option>
                             <mat-option value="mon">Monografie</mat-option>
                             <mat-option value="per">Periodikum</mat-option>
@@ -26,7 +27,7 @@
                     <mat-form-field>
                         <mat-label>Vynucená verze DMF</mat-label>
                         <mat-select (selectionChange)="onDmfForcedVersionSelected($event)"
-                            [disabled]="!dmfType || waitingForBackend">
+                            [disabled]="!dmfType || waitingForBackend || userQuotasReached">
                             <mat-option>Neurčeno</mat-option>
                             <mat-option *ngFor="let version of getAvailableDmfVersions()" value="{{version}}">
                                 {{version}}
@@ -39,7 +40,7 @@
                     <mat-form-field>
                         <mat-label>Preferovaná verze DMF</mat-label>
                         <mat-select (selectionChange)="onDmfPreferredVersionSelected($event)"
-                            [disabled]="!dmfType || dmfForcedVersion || waitingForBackend">
+                            [disabled]="!dmfType || dmfForcedVersion || waitingForBackend || userQuotasReached">
                             <mat-option>Neurčeno</mat-option>
                             <mat-option *ngFor="let version of getAvailableDmfVersions()" value="{{version}}">
                                 {{version}}
@@ -52,7 +53,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Poznámka</mat-label>
                         <input matInput placeholder="Poznámka" [(ngModel)]="note" [ngModelOptions]="{standalone: true}"
-                            [disabled]="waitingForBackend">
+                            [disabled]="waitingForBackend || userQuotasReached">
                         <mat-icon matSuffix color="primary">note</mat-icon>
                         <!-- <mat-hint>Hint</mat-hint> -->
                     </mat-form-field>
@@ -62,7 +63,7 @@
                         accept="application/zip" [disabled]="waitingForBackend">
                     <div class="file-upload">
                         <button mat-stroked-button color="primary" class="upload-btn" (click)="fileUpload.click()"
-                            [disabled]="waitingForBackend">
+                            [disabled]="waitingForBackend || userQuotasReached">
                             <mat-icon>attach_file</mat-icon>
                             Vybrat ZIP soubor balíčku
                         </button>
@@ -75,7 +76,7 @@
                             velikost: {{getPackageSizeMB()}} MB
                         </div>
                         <div *ngIf="packageTooBig()" class="app-page-validation-size-error">
-                            Soubor {{fileSelected!.name}} je příliš velký. Maximální povolená velikost je
+                            Soubor je příliš velký. Maximální povolená velikost je
                             {{maxPackageSizeMB}}
                             MB.
                         </div>
@@ -88,15 +89,39 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-flat-button [disabled]="!formIsValid() || waitingForBackend" color="primary"
-                (click)="schedule()">Naplánovat validaci</button>
+            <button mat-flat-button [disabled]="!formIsValid() || waitingForBackend || userQuotasReached"
+                color="primary" (click)="schedule()">Naplánovat validaci</button>
             <!-- <button mat-button (click)="test()">Test</button> -->
         </mat-card-actions>
     </mat-card>
 
-
-
-
+    <mat-card class="mat-card" style="padding: 15px;" *ngIf="userQuotasReached">
+        <mat-card-title>Vyčerpali jste kvóty pro počet validací</mat-card-title>
+        <mat-card-subtitle>Nyní nemůžete nahrávat další balíčky k validaci</mat-card-subtitle>
+        <mat-card-content>
+            <br>
+            <div>
+                Aktuálně máte {{myValidationsActive}} aktivních, {{myValidationsInactive}} neaktivních a
+                {{myValidationsDeleted}} dokončených validací.
+            </div>
+            <br>
+            <div>
+                Pro neověřené uživatele je povoleno maximálně {{maxActivaValidationsForUnverifiedUser}} aktivních a
+                {{maxInactivaValidationsForUnverifiedUser}} neaktivních validací.
+            </div>
+            <div>
+                Pro ověřené uživatele je povoleno maximálně {{maxActivaValidationsForVerifiedUser}} aktivních a
+                {{maxInactivaValidationsForVerifiedUser}} neaktivních validací.
+            </div>
+            <br>
+            <div *ngIf="!iAmVerified">
+                Vy jste neověřený uživatel.
+            </div>
+            <div *ngIf="iAmVerified">
+                Vy jste ověřený uživatel.
+            </div>
+        </mat-card-content>
+    </mat-card>
 
 
 </div>
