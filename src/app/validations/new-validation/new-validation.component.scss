@@ -5,3 +5,21 @@
 .file-input {
     display: none;
 }
+
+.mat-card {
+    max-width: 650px;
+    margin: 15px;
+}
+
+.app-page-validation-form {
+    padding: 8px;
+}
+
+.app-page-validation-progressbar-container {
+    padding: 8px;
+}
+
+.app-page-validation-size-error {
+    text-decoration: wavy;
+    color: red;
+}

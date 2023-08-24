@@ -30,8 +30,7 @@ export class NewValidationComponent implements OnInit {
   ngOnInit(): void {
     this.waitingForBackend = true;
     this.backend.getQuotas().subscribe(result => {
-      console.log(result);
-      this.maxPackageSizeMB = result.max_package_size_mb;
+      this.maxPackageSizeMB = result.maxUploadSizeMB;
       this.waitingForBackend = false;
       //TODO: zjistit pocet mojich aktivnich validaci a podle toho omezit
     });
@@ -53,8 +52,10 @@ export class NewValidationComponent implements OnInit {
       if (this.dmfForcedVersion) {
         newFormData.append("forced-dmf-version", this.dmfForcedVersion!);
       }
+      this.waitingForBackend = true;
       this.backend.createValidation(newFormData).subscribe(response => {
         console.log(response);
+        this.waitingForBackend = false;
         //TODO: route
       })
     }
