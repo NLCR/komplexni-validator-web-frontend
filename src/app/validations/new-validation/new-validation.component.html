@@ -1,41 +1,61 @@
 <div class="app-page-validations-new">
-    <!-- <button (click)="test()">test</button> -->
 
-    <!-- <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="indeterminate"></mat-progress-bar> -->
-
+    <h1>Nahrání nového balíčku k validaci</h1>
 
     <form #f="ngForm" (ngSubmit)="schedule(f.value)">
-        <!-- <h2 mat-dialog-title>blabla</h2> -->
+
         <p>
-            <mat-form-field appearance="fill">
-                <mat-label>Fill form field</mat-label>
-                <input matInput placeholder="Placeholder">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                <!-- <mat-hint>Hint</mat-hint> -->
+            <mat-form-field>
+                <mat-label>Typ balíčku</mat-label>
+                <mat-select (selectionChange)="onDmfTypeSelected($event)" [disabled]="waitingForBackend">
+                    <mat-option>Neurčeno</mat-option>
+                    <mat-option value="mon">Monografie</mat-option>
+                    <mat-option value="per">Periodikum</mat-option>
+                    <mat-option value="audio_fono">Zvuk-fonováleček</mat-option>
+                    <mat-option value="audio_gram">Zvuk-gramodeska</mat-option>
+                </mat-select>
             </mat-form-field>
         </p>
+
         <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Outline form field</mat-label>
-                <input matInput placeholder="Placeholder">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                <!-- <mat-hint>Hint</mat-hint> -->
+            <mat-form-field>
+                <mat-label>Vynucená verze DMF</mat-label>
+                <mat-select (selectionChange)="onDmfForcedVersionSelected($event)"
+                    [disabled]="!dmfType || waitingForBackend">
+                    <mat-option>Neurčeno</mat-option>
+                    <mat-option *ngFor="let version of getAvailableDmfVersions()" value="{{version}}">
+                        {{version}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field>
+                <mat-label>Preferovaná verze DMF</mat-label>
+                <mat-select (selectionChange)="onDmfPreferredVersionSelected($event)"
+                    [disabled]="!dmfType || dmfForcedVersion || waitingForBackend">
+                    <mat-option>Neurčeno</mat-option>
+                    <mat-option *ngFor="let version of getAvailableDmfVersions()" value="{{version}}">
+                        {{version}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
         </p>
 
         <p>
             <mat-form-field appearance="fill">
                 <mat-label>Poznámka</mat-label>
-                <input matInput placeholder="Poznámka" [(ngModel)]="note" [ngModelOptions]="{standalone: true}">
+                <input matInput placeholder="Poznámka" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" [disabled]="waitingForBackend">
                 <mat-icon matSuffix>note</mat-icon>
                 <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
         </p>
 
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept="application/zip">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload accept="application/zip" [disabled]="waitingForBackend">
         <div class="file-upload">
             {{fileSelected?.name || "Vyberte balík v souboru ZIP."}}
-            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" [disabled]="waitingForBackend">
                 <mat-icon>attach_file</mat-icon>
             </button>
         </div>
@@ -49,8 +69,10 @@
         </div>
 
         <div>
-            <button mat-flat-button [disabled]="!formIsValid()" color="primary" type="submit">Nahrát</button>
+            <button mat-flat-button [disabled]="!formIsValid() || waitingForBackend" color="primary" type="submit">Nahrát</button>
         </div>
+
+        <mat-progress-bar *ngIf="waitingForBackend" mode="indeterminate"></mat-progress-bar>
 
 
     </form>

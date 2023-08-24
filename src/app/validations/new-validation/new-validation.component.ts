@@ -12,29 +12,43 @@ export class NewValidationComponent implements OnInit {
   constructor(private backend: BackendService, private router: Router) { }
 
   ngOnInit(): void {
+    this.waitingForBackend = true;
+    this.backend.getQuotas().subscribe(result => {
+      console.log(result);
+      this.maxPackageSizeMB = result.max_package_size_mb;
+      this.waitingForBackend = false;
+      //TODO: zjistit pocet mojich aktivnich validaci a podle toho omezit
+    });
   }
 
-  maxPackageSizeMB = 13; //MB //TODO: z kvot
+  waitingForBackend = false;
+  
+  maxPackageSizeMB = 0;
   fileSelected: File | undefined;
   note = '';
 
   schedule(formData: any) {
-    console.log("schedule()");
-    console.log(formData)
+    //console.log("schedule()");
+    //console.log(formData)
 
     if (this.formIsValid()) {
-
       const newFormData = new FormData();
       newFormData.append("file", this.fileSelected!);
-      newFormData.append("note", this.note);
-
-      //TODO: dalsi pole z formulare
-      newFormData.append("dmf-type", 'mon')
-      newFormData.append("preferred-dmf-version", 'mon_1.0')
-      newFormData.append("forced-dmf-version", 'mon_1.2')
-
+      if (this.note) {
+        newFormData.append("note", this.note!);
+      }
+      if (this.dmfType) {
+        newFormData.append("dmf-type", this.dmfType!)
+      }
+      if (this.dmfPreferedVersion) {
+        newFormData.append("preferred-dmf-version", this.dmfPreferedVersion!);
+      }
+      if (this.dmfForcedVersion) {
+        newFormData.append("forced-dmf-version", this.dmfForcedVersion!);
+      }
       this.backend.createValidation(newFormData).subscribe(response => {
         console.log(response);
+        //TODO: route
       })
     }
   }
@@ -60,6 +74,56 @@ export class NewValidationComponent implements OnInit {
     console.log("onFileSelected()");
     const file: File = event.target.files[0];
     this.fileSelected = file;
+  }
+
+  dmfType: string | undefined = undefined
+  dmfPreferedVersion: string | undefined = undefined;
+  dmfForcedVersion: string | undefined = undefined;
+
+  dmfMonVersions = ['monograph_1.0', 'monograph_1.2', 'monograph_1.3', 'monograph_1.3.1', 'monograph_1.3.2', 'monograph_1.4', 'monograph_2.0'];
+  dmfPerVersions = ['periodical_1.4', 'periodical_1.6', 'periodical_1.7', 'periodical_1.7.1', 'periodical_1.8', 'periodical_1.9'];
+  dmfAudioFonoVersions = ['audio_fono_0.3'];
+  dmfAudioGramVersions = ['audio_gram_0.4', 'audio_gram_0.5'];
+
+  onDmfTypeSelected(event: any) {
+    console.log("onDmfTypeSelected()");
+    console.log(event);
+    this.dmfType = event.value;
+    this.dmfPreferedVersion = undefined;
+    this.dmfForcedVersion = undefined;
+    this.logDmfParams();
+  }
+
+  onDmfPreferredVersionSelected(event: any) {
+    this.dmfPreferedVersion = event.value;
+    this.logDmfParams();
+  }
+
+  onDmfForcedVersionSelected(event: any) {
+    this.dmfForcedVersion = event.value;
+    this.dmfPreferedVersion = undefined;
+    this.logDmfParams();
+  }
+
+  logDmfParams() {
+    console.log("logDmfParams()");
+    console.log(this.dmfType);
+    console.log(this.dmfForcedVersion);
+    console.log(this.dmfPreferedVersion);
+  }
+
+  getAvailableDmfVersions() {
+    switch (this.dmfType) {
+      case 'mon':
+        return this.dmfMonVersions;
+      case 'per':
+        return this.dmfPerVersions;
+      case 'audio_fono':
+        return this.dmfAudioFonoVersions;
+      case 'audio_gram':
+        return this.dmfAudioGramVersions;
+      default: return [];
+    }
   }
 
 }
