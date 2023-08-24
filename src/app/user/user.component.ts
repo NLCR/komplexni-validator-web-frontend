@@ -75,7 +75,8 @@ export class UserComponent implements OnInit {
   logout() {
     this.socialAuthService.signOut(true);
     this.userService.clear();
-    this.router.navigate(['about']);
+    //this.router.navigate(['about']);
+    this.router.navigate(['']);
   }
 
   isAdmin() {

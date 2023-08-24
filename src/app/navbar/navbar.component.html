@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" fxLayout="row">
   <div fxFlex>
-    <a routerLink="/" class="app-logo" fxLayout="row">
+    <a routerLink="/" class="app-logo" fxLayout="row" routerLinkActive="true">
       Komplexní validátor
     </a>
   </div>
@@ -17,9 +17,9 @@
     <div class="app-navbar-item" *ngIf="isAdmin()">
       <a routerLink="/users" routerLinkActive="active" mat-button class="app-navbar-item-a">Uživatelé</a>
     </div>
-    <div class="app-navbar-item">
+    <!-- <div class="app-navbar-item">
       <a routerLink="/about" routerLinkActive="active" mat-button class="app-navbar-item-a">Informace</a>
-    </div>
+    </div> -->
     <div class="profile-image-container" *ngIf="isLoggedIn()">
       <a routerLink="/user" routerLinkActive="active" mat-button class="app-navbar-item-a">
         <img *ngIf="isThumbnailAvailable()" src="{{getThumbnail()}}" class="app-navbar-avatar"

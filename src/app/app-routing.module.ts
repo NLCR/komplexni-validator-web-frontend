@@ -10,7 +10,7 @@ import { ValidationComponent } from './validations/validation/validation.compone
 import { ValidationsComponent } from './validations/validations.component';
 
 const routes: Routes = [
-  { path: '', component: AboutComponent, canActivate: [AuthGuardService] },
+  { path: '', redirectTo: '/about' , pathMatch: 'full'},
   { path: 'user', component: UserComponent },
   { path: 'about', component: AboutComponent, canActivate: [AuthGuardService] },
   { path: 'validations', component: ValidationsComponent, canActivate: [AuthGuardService] },
