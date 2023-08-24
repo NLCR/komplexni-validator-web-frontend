@@ -83,7 +83,7 @@ export class UserComponent implements OnInit {
   }
 
   isVerified() {
-    return this.userService.getBackendUser()['verfied'];
+    return this.userService.getBackendUser()['verified'];
   }
 
   test() {
