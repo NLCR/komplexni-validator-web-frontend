@@ -11,6 +11,22 @@ export class NewValidationComponent implements OnInit {
 
   constructor(private backend: BackendService, private router: Router) { }
 
+  waitingForBackend = false;
+
+  maxPackageSizeMB = 0;
+
+  fileSelected: File | undefined;
+  note = '';
+  dmfType: string | undefined = undefined
+  dmfPreferedVersion: string | undefined = undefined;
+  dmfForcedVersion: string | undefined = undefined;
+
+  dmfMonVersions = ['monograph_1.0', 'monograph_1.2', 'monograph_1.3', 'monograph_1.3.1', 'monograph_1.3.2', 'monograph_1.4', 'monograph_2.0'];
+  dmfPerVersions = ['periodical_1.4', 'periodical_1.6', 'periodical_1.7', 'periodical_1.7.1', 'periodical_1.8', 'periodical_1.9'];
+  dmfAudioFonoVersions = ['audio_fono_0.3'];
+  dmfAudioGramVersions = ['audio_gram_0.4', 'audio_gram_0.5'];
+
+
   ngOnInit(): void {
     this.waitingForBackend = true;
     this.backend.getQuotas().subscribe(result => {
@@ -21,16 +37,7 @@ export class NewValidationComponent implements OnInit {
     });
   }
 
-  waitingForBackend = false;
-  
-  maxPackageSizeMB = 0;
-  fileSelected: File | undefined;
-  note = '';
-
-  schedule(formData: any) {
-    //console.log("schedule()");
-    //console.log(formData)
-
+  schedule() {
     if (this.formIsValid()) {
       const newFormData = new FormData();
       newFormData.append("file", this.fileSelected!);
@@ -67,27 +74,14 @@ export class NewValidationComponent implements OnInit {
 
   formIsValid() {
     return this.fileSelected && !this.packageTooBig();
-    //TODO: musi byt vyplneny typ DMF
   }
 
   onFileSelected(event: any) {
-    console.log("onFileSelected()");
     const file: File = event.target.files[0];
     this.fileSelected = file;
   }
 
-  dmfType: string | undefined = undefined
-  dmfPreferedVersion: string | undefined = undefined;
-  dmfForcedVersion: string | undefined = undefined;
-
-  dmfMonVersions = ['monograph_1.0', 'monograph_1.2', 'monograph_1.3', 'monograph_1.3.1', 'monograph_1.3.2', 'monograph_1.4', 'monograph_2.0'];
-  dmfPerVersions = ['periodical_1.4', 'periodical_1.6', 'periodical_1.7', 'periodical_1.7.1', 'periodical_1.8', 'periodical_1.9'];
-  dmfAudioFonoVersions = ['audio_fono_0.3'];
-  dmfAudioGramVersions = ['audio_gram_0.4', 'audio_gram_0.5'];
-
   onDmfTypeSelected(event: any) {
-    console.log("onDmfTypeSelected()");
-    console.log(event);
     this.dmfType = event.value;
     this.dmfPreferedVersion = undefined;
     this.dmfForcedVersion = undefined;
@@ -106,7 +100,6 @@ export class NewValidationComponent implements OnInit {
   }
 
   logDmfParams() {
-    console.log("logDmfParams()");
     console.log(this.dmfType);
     console.log(this.dmfForcedVersion);
     console.log(this.dmfPreferedVersion);
