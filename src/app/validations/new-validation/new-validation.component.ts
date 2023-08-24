@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.service';
 
@@ -9,11 +10,11 @@ import { BackendService } from 'src/app/services/backend.service';
 })
 export class NewValidationComponent implements OnInit {
 
-  constructor(private backend: BackendService, private router: Router) { }
+  constructor(private backend: BackendService, private router: Router, private snackBar: MatSnackBar) { }
 
   waitingForBackend = false;
 
-  maxPackageSizeMB = 0;
+  maxPackageSizeMB = 100000;
 
   fileSelected: File | undefined;
   note = '';
@@ -25,7 +26,6 @@ export class NewValidationComponent implements OnInit {
   dmfPerVersions = ['periodical_1.4', 'periodical_1.6', 'periodical_1.7', 'periodical_1.7.1', 'periodical_1.8', 'periodical_1.9'];
   dmfAudioFonoVersions = ['audio_fono_0.3'];
   dmfAudioGramVersions = ['audio_gram_0.4', 'audio_gram_0.5'];
-
 
   ngOnInit(): void {
     this.waitingForBackend = true;
@@ -54,11 +54,27 @@ export class NewValidationComponent implements OnInit {
       }
       this.waitingForBackend = true;
       this.backend.createValidation(newFormData).subscribe(response => {
-        console.log(response);
+        //console.log(response);
         this.waitingForBackend = false;
-        //TODO: route
+        this.cleanForm();
+        const validationId = response['validation-id'];
+        this.snackBar.open("Balíček byl nahrán a nova validace naplánována", "Zobrazit", { duration: 15000 }).onAction().subscribe(() => {
+          this.router.navigate(['validations', validationId]);
+        });
+      }, error => {
+        console.log(error);
+        this.snackBar.open("Chyba při nahrávání balíčku", "Zavřít")
+        this.waitingForBackend = false;
       })
     }
+  }
+
+  cleanForm() {
+    this.fileSelected = undefined;
+    this.note = '';
+    this.dmfType = undefined;
+    this.dmfPreferedVersion = undefined;
+    this.dmfForcedVersion = undefined;
   }
 
   packageTooBig() {
