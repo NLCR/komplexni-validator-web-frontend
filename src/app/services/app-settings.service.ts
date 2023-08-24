@@ -21,4 +21,5 @@ export class AppSettingsService {
 
   //adminApiBaseUrl = 'http://localhost:8080/validator-api/api'
   adminApiBaseUrl = 'http://localhost:8080'
+  //adminApiBaseUrl = 'https://api.kv.testest.eu'
 }

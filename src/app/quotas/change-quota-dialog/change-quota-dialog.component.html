@@ -1,10 +1,24 @@
-<h1 mat-dialog-title>Upravit kvótu</h1>
-<div mat-dialog-content>
-    <p>key: {{getQuotaId()}}</p>
-    <p>value: {{getQuotaValue()}}</p>
-</div>
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close cdkFocusInitial>Zavřít</button>
-    <button mat-button (click)="incrementAndSave()">+1 a Uložit</button>
-    <button mat-button (click)="decrementAndSave()" *ngIf="getQuotaValue()>=1">-1 a Uložit</button>
+<div class="app-quota-change-dialog">
+
+    <h1 mat-dialog-title>Upravit kvótu</h1>
+    <div mat-dialog-content>
+        <!-- <h2>{{getQuotaName()}}</h2> -->
+        <form>
+            <mat-form-field class="app-quota-change-dialog-form-field">
+                <!-- <mat-label>{{getQuotaName()}}</mat-label> -->
+                <p>{{getQuotaName()}}</p>
+                <input matInput type="number" min="0" [(ngModel)]="newValue" [ngModelOptions]="{standalone: true}">
+                <!-- <p>blabla</p> -->
+            </mat-form-field>
+        </form>
+
+        <div class="app-quota-change-dialog-note">
+            {{getNote()}}
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close cdkFocusInitial>Zavřít</button>
+        <button mat-button (click)="save()" [disabled]="!valueChanged()">Uložit</button>
+    </div>
+
 </div>

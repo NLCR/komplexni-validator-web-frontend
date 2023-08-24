@@ -28,15 +28,13 @@ export class QuotasComponent implements OnInit {
   }
 
   openUpdateQuotaDialog(quota: any) {
-    console.log(quota);
     this.openDialog('0.2s', '0.2s', quota);
   }
 
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, quota: any): void {
-    console.log(quota)
     const dialogRef = this.dialog.open(ChangeQuotaDialogComponent, {
-      width: '250px',
+      maxWidth: '25vw',
       enterAnimationDuration,
       exitAnimationDuration,
       data: {
@@ -46,9 +44,6 @@ export class QuotasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log("result: ");
-      console.log(result);
       if (result) {
         this.backend.setQuota(result.quotaId, result.quotaValue).subscribe(result => {
           this.loadQuotas();
@@ -60,7 +55,7 @@ export class QuotasComponent implements OnInit {
   loadQuotas() {
     this.backend.getQuotas().subscribe(result => {
       this.quotas = result;
-      console.log(result);
+      //console.log(result);
       this.quotasArray = Object.keys(result).map(key => ({ key, value: result[key] }));
     })
   }
