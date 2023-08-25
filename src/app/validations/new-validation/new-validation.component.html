@@ -106,12 +106,12 @@
             </div>
             <br>
             <div>
-                Pro neověřené uživatele je povoleno maximálně {{maxActivaValidationsForUnverifiedUser}} aktivních a
-                {{maxInactivaValidationsForUnverifiedUser}} neaktivních validací.
+                Pro neověřené uživatele je povoleno maximálně {{userUnverifiedMaxActiveJobs}} aktivních a
+                {{userUnverifiedMaxInactiveJobs}} neaktivních validací.
             </div>
             <div>
-                Pro ověřené uživatele je povoleno maximálně {{maxActivaValidationsForVerifiedUser}} aktivních a
-                {{maxInactivaValidationsForVerifiedUser}} neaktivních validací.
+                Pro ověřené uživatele je povoleno maximálně {{userVerifiedMaxActiveJobs}} aktivních a
+                {{userUnverifiedMaxInactiveJobs}} neaktivních validací.
             </div>
             <br>
             <div *ngIf="!iAmVerified">

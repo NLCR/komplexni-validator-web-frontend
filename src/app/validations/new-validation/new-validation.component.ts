@@ -33,18 +33,23 @@ export class NewValidationComponent implements OnInit {
   myValidationsDeleted = 0;
 
   userQuotasReached = false;
-  maxActivaValidationsForUnverifiedUser = 1;
-  maxInactivaValidationsForUnverifiedUser = 10;
+  userUnverifiedMaxActiveJobs = 0;
+  userUnverifiedMaxInactiveJobs = 0;
+  userVerifiedMaxActiveJobs = 0;
+  userVerifiedMaxInactiveJobs = 0;
 
-  maxActivaValidationsForVerifiedUser = 3;
-  maxInactivaValidationsForVerifiedUser = 30;
   iAmAdmin = false;
   iAmVerified = false;
 
   ngOnInit(): void {
     this.waitingForBackend = true;
     this.backend.getQuotas().subscribe(result => {
+      console.log(result);
       this.maxPackageSizeMB = result.maxUploadSizeMB;
+      this.userUnverifiedMaxActiveJobs = result.userUnverifiedMaxActiveJobs;
+      this.userUnverifiedMaxInactiveJobs = result.userUnverifiedMaxInactiveJobs;
+      this.userVerifiedMaxActiveJobs = result.userVerifiedMaxActiveJobs;
+      this.userVerifiedMaxInactiveJobs = result.userVerifiedMaxInactiveJobs;
       this.backend.getValidationCounters().subscribe(result => {
         console.log(result);
         this.processCounters(result);
@@ -160,58 +165,13 @@ export class NewValidationComponent implements OnInit {
   }
 
   processCounters(counters: any) {
-    if (counters['READY_FOR_EXTRACTION']) {
-      this.myValidationsActive += counters['READY_FOR_EXTRACTION'];
-    }
-    if (counters['TO_BE_EXTRACTED']) {
-      this.myValidationsActive += counters['TO_BE_EXTRACTED'];
-    }
-    if (counters['EXTRACTING']) {
-      this.myValidationsActive += counters['EXTRACTING'];
-    }
-    if (counters['READY_FOR_EXECUTION']) {
-      this.myValidationsActive += counters['READY_FOR_EXECUTION'];
-    }
-    if (counters['TO_BE_EXECUTED']) {
-      this.myValidationsActive += counters['TO_BE_EXECUTED'];
-    }
-    if (counters['EXECUTING']) {
-      this.myValidationsActive += counters['EXECUTING'];
-    }
+    //console.log(counters);
+    this.myValidationsActive = counters.byActivity.active;
+    this.myValidationsInactive = counters.byActivity.inactive;
 
-
-    if (counters['FINISHED']) {
-      this.myValidationsInactive += counters['FINISHED'];
-    }
-    if (counters['ERROR']) {
-      this.myValidationsInactive += counters['ERROR'];
-    }
-    if (counters['CANCELED']) {
-      this.myValidationsInactive += counters['CANCELED'];
-    }
-    if (counters['TO_BE_ARCHIVED']) {
-      this.myValidationsInactive += counters['TO_BE_ARCHIVED'];
-    }
-    if (counters['ARCHIVING']) {
-      this.myValidationsInactive += counters['ARCHIVING'];
-    }
-    if (counters['ARCHIVED']) {
-      this.myValidationsInactive += counters['ARCHIVED'];
-    }
-    if (counters['TO_BE_DELETED']) {
-      this.myValidationsInactive += counters['TO_BE_DELETED'];
-    }
-    if (counters['DELETING']) {
-      this.myValidationsInactive += counters['DELETING'];
-    }
-
-    if (counters['DELETED']) {
-      this.myValidationsDeleted += counters['DELETED'];
-    }
-
-    console.log(this.myValidationsActive);
-    console.log(this.myValidationsInactive);
-    console.log(this.myValidationsDeleted);
+    //console.log(this.myValidationsActive);
+    //console.log(this.myValidationsInactive);
+    //console.log(this.myValidationsDeleted);
 
     const user = this.userService.getBackendUser();
     if (user.admin) {
@@ -219,17 +179,17 @@ export class NewValidationComponent implements OnInit {
       //nothing, can run as many quotas as possible
     } else if (user.verified) {
       this.iAmVerified = true;
-      if (this.myValidationsActive >= this.maxActivaValidationsForVerifiedUser) {
+      if (this.myValidationsActive >= this.userVerifiedMaxActiveJobs) {
         this.userQuotasReached = true;
       }
-      if (this.myValidationsInactive >= this.maxInactivaValidationsForVerifiedUser) {
+      if (this.myValidationsInactive >= this.userVerifiedMaxInactiveJobs) {
         this.userQuotasReached = true;
       }
     } else {
-      if (this.myValidationsActive >= this.maxActivaValidationsForUnverifiedUser) {
+      if (this.myValidationsActive >= this.userUnverifiedMaxActiveJobs) {
         this.userQuotasReached = true;
       }
-      if (this.myValidationsInactive >= this.maxInactivaValidationsForUnverifiedUser) {
+      if (this.myValidationsInactive >= this.userUnverifiedMaxInactiveJobs) {
         this.userQuotasReached = true;
       }
     }
