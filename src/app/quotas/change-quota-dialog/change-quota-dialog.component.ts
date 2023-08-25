@@ -48,6 +48,16 @@ export class ChangeQuotaDialogComponent {
         return 'Maximální počet současně běžících procesů MAZÁNÍ'
       case 'maxParallelArchivationJobs':
         return 'Maximální počet současně běžících procesů ARCHIVACE'
+
+      case 'userUnverifiedMaxActiveJobs':
+        return 'Neověřený uživatel: Maximální počet aktivních procesů'
+      case 'userUnverifiedMaxInactiveJobs':
+        return 'Neověřený uživatel: Maximální počet neaktivních procesů'
+      case 'userVerifiedMaxActiveJobs':
+        return 'Ověřený uživatel: Maximální počet aktivních procesů'
+      case 'userVerifiedMaxInactiveJobs':
+        return 'Ověřený uživatel: Maximální počet neaktivních procesů'
+
       default:
         return quotaId;
     }
@@ -72,6 +82,16 @@ export class ChangeQuotaDialogComponent {
         return 'Nový proces MAZÁNÍ bude spouštěn, pokud počet aktuálně běžících procesů typu MAZÁNÍ je menší než hodnota tohoto parametru. A zároveň je volný slot pro nový proces.'
       case 'maxParallelArchivationJobs':
         return 'Nový proces ARCHIVACE bude spouštěn, pokud počet aktuálně běžících procesů typu ARCHIVACE je menší než hodnota tohoto parametru. A zároveň je volný slot pro nový proces.'
+
+      case 'userUnverifiedMaxActiveJobs':
+        return 'Pokud má uživatel více než tento počet aktivních procesů Validace, nebude mu umožněno nahrát další balíček k validaci. Za aktivní je Validace považována od nahrání až do doby, kdy je dokončena (stavy FINISHED, ERROR, CANCELED). Platí pro neověřené uživatele.'
+      case 'userUnverifiedMaxInactiveJobs':
+        return 'Pokud má uživatel více než tento počet neaktivních procesů Validace, nebude mu umožněno nahrát další balíček k validaci. Za neaktivní je Validace považována od dokončení do smazání. Platí pro neověřené uživatele.'
+      case 'userVerifiedMaxActiveJobs':
+        return 'Pokud má uživatel více než tento počet aktivních procesů Validace, nebude mu umožněno nahrát další balíček k validaci. Za aktivní je Validace považována od nahrání až do doby, kdy je dokončena (stavy FINISHED, ERROR, CANCELED). Platí pro ověřené uživatele.'
+      case 'userVerifiedMaxInactiveJobs':
+        return 'Pokud má uživatel více než tento počet neaktivních procesů Validace, nebude mu umožněno nahrát další balíček k validaci. Za neaktivní je Validace považována od dokončení do smazání. Platí pro ověřené uživatele.'
+
       default:
         return quotaId;
     }

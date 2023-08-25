@@ -20,7 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -83,6 +83,7 @@ export function initApp(initializerService: InitializerService) {
     MatDialogModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatSortModule,
 
     SocialLoginModule,
     GoogleSigninButtonModule

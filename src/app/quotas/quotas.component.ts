@@ -56,7 +56,8 @@ export class QuotasComponent implements OnInit {
     this.backend.getQuotas().subscribe(result => {
       this.quotas = result;
       //console.log(result);
-      this.quotasArray = Object.keys(result).map(key => ({ key, value: result[key] }));
+      this.quotasArray = Object.keys(result).map(key => ({ key, value: result[key] })).sort((a, b) => a.key.localeCompare(b.key));
+      //console.log(this.quotasArray);
     })
   }
 
@@ -134,6 +135,16 @@ export class QuotasComponent implements OnInit {
         return 'Maximální počet současně běžících procesů MAZÁNÍ'
       case 'maxParallelArchivationJobs':
         return 'Maximální počet současně běžících procesů ARCHIVACE'
+
+      case 'userUnverifiedMaxActiveJobs':
+        return 'Neověřený uživatel: Maximální počet aktivních procesů'
+      case 'userUnverifiedMaxInactiveJobs':
+        return 'Neověřený uživatel: Maximální počet neaktivních procesů'
+      case 'userVerifiedMaxActiveJobs':
+        return 'Ověřený uživatel: Maximální počet aktivních procesů'
+      case 'userVerifiedMaxInactiveJobs':
+        return 'Ověřený uživatel: Maximální počet neaktivních procesů'
+
       default:
         return id;
     }
