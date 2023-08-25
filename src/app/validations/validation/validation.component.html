@@ -25,6 +25,16 @@
                     {{validation['preferredDmfVersion']}}
                 </div>
                 <div *ngIf="validation['priority']">priorita: {{validation['priority']}}</div>
+                <div class="app-page-validation-button-container" *ngIf="canChangePriority()">
+                    <button mat-stroked-button color="warn" (click)="decreasePriority()">
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                        snížit prioritu
+                    </button>
+                    <button mat-stroked-button color="warn" (click)="increasePriority()"
+                        *ngIf="this.validation['priority']>1">
+                        <mat-icon>keyboard_arrow_up</mat-icon>
+                        zvýšit prioritu</button>
+                </div>
             </mat-card-content>
         </mat-card>
         <br>
@@ -34,7 +44,8 @@
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="validation['tsCreated']">nahráno: {{validation['tsCreated']|date:'yyyy/MM/dd HH:mm'}}</div>
-                <div *ngIf="validation['tsScheduled']">naplánováno: {{validation['tsScheduled']|date:'yyyy/MM/dd HH:mm'}}</div>
+                <div *ngIf="validation['tsScheduled']">naplánováno:
+                    {{validation['tsScheduled']|date:'yyyy/MM/dd HH:mm'}}</div>
                 <div *ngIf="validation['tsStarted']">spuštěno: {{validation['tsStarted']|date:'yyyy/MM/dd HH:mm'}}</div>
                 <div *ngIf="validation['tsEnded']">ukončeno: {{validation['tsEnded']|date:'yyyy/MM/dd HH:mm'}}</div>
             </mat-card-content>

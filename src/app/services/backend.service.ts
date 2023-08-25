@@ -34,7 +34,6 @@ export class BackendService {
   // }
 
   private head(path: string, options = {}): Observable<Object> {
-    console.log('HEAD ' + path)
     return this.http.head(this.baseUrl + path, options);
   }
 
@@ -168,6 +167,19 @@ export class BackendService {
     const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
     return this.put(`/kv-validation-manager-service/api/validations/${id}/state`,
       'CANCELED',
+      options
+    ).pipe(
+      //delay(500),
+      tap(response => {
+        //console.log(response)
+      })
+    );
+  }
+
+  setValidationPriority(id: string, newPriority: number) {
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'text/plain' }) };
+    return this.put(`/kv-validation-manager-service/api/validations/${id}/priority`,
+      newPriority,
       options
     ).pipe(
       //delay(500),

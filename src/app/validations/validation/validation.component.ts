@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppSettingsService } from 'src/app/services/app-settings.service';
 import { BackendService } from 'src/app/services/backend.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-validation',
@@ -19,7 +20,7 @@ export class ValidationComponent implements OnInit {
   validationLogTxtExists = false;
   validationLogXmlExists = false;
 
-  constructor(private backend: BackendService, private router: Router, private route: ActivatedRoute, private appSettings: AppSettingsService, private http: HttpClient) { }
+  constructor(private backend: BackendService, private router: Router, private route: ActivatedRoute, private appSettings: AppSettingsService, private http: HttpClient, private userService: UserService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -158,4 +159,31 @@ export class ValidationComponent implements OnInit {
   downloadFile(url: string) {
     return this.http.get(url, { responseType: 'blob' });
   }
+
+  canChangePriority() {
+    if (!this.userService.isAdmin() || !this.validation) return false;
+    switch (this.validation!['state']) {
+      case 'DELETED':
+        return false;
+      default:
+        return true;
+    }
+  }
+
+  increasePriority() {
+    const newPriority = this.validation!['priority'] - 1;
+    this.backend.setValidationPriority(this.validation!['id'], newPriority).subscribe(result => {
+      const validation = this.validation;
+      this.loadValidation(this.validation!['id']);
+    });
+  }
+
+  decreasePriority() {
+    const newPriority = this.validation!['priority'] + 1;
+    this.backend.setValidationPriority(this.validation!['id'], newPriority).subscribe(result => {
+      const validation = this.validation;
+      this.loadValidation(this.validation!['id']);
+    });
+  }
+
 }

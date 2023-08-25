@@ -173,11 +173,10 @@ export class NewValidationComponent implements OnInit {
     //console.log(this.myValidationsInactive);
     //console.log(this.myValidationsDeleted);
 
-    const user = this.userService.getBackendUser();
-    if (user.admin) {
+    if (this.userService.isAdmin()) {
       this.iAmAdmin = true;
       //nothing, can run as many quotas as possible
-    } else if (user.verified) {
+    } else if (this.userService.isVerified()) {
       this.iAmVerified = true;
       if (this.myValidationsActive >= this.userVerifiedMaxActiveJobs) {
         this.userQuotasReached = true;

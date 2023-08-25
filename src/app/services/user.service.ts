@@ -45,6 +45,10 @@ export class UserService {
     return this.backendUser?.admin;
   }
 
+  public isVerified() {
+    return this.backendUser?.verified;
+  }
+
   public getSocialUser() {
     //console.log("UserService.getSocialUser()");
     if (this.socialUser) {
