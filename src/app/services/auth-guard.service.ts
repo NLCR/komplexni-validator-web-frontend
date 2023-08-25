@@ -19,14 +19,14 @@ export class AuthGuardService implements CanActivate {
     //console.log(route);
     const path = route.routeConfig?.path;
     const pathParams = route.params;
-    console.log(path);
+    //console.log(path);
 
     if (this.userService.isAdmin()) {
       return true;
     }
 
     if (this.userService.isLoggedIn()) {
-      return path == 'about' || path == 'user' || path == 'validations' || path == 'validations/new';
+      return path == 'about' || path == 'user' || path == 'validations' || path == 'validations/new' || path == 'validations/:id';
     } else {
       return path == 'about';
     }

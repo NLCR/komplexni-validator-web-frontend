@@ -53,7 +53,7 @@
 
         <div>
             <div *ngIf="canBeCanceled()" class="app-page-validation-button-container">
-                <button color="primary" mat-raised-button (click)="cancelValidation()">
+                <button mat-stroked-button color="warn" (click)="cancelValidation()">
                     <mat-icon>cancel</mat-icon>
                     zrušit</button>
             </div>

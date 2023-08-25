@@ -40,16 +40,6 @@ export class ValidationComponent implements OnInit {
     this.backend.checkValidationLogXmlExists(id).subscribe(() => this.validationLogXmlExists = true);
   }
 
-  canBeCanceled() {
-    return false; //TODO
-  }
-
-  cancelValidation() {
-    this.backend.cancelValidation(this.id).subscribe(result => {
-      this.loadValidation(this.id);
-    })
-  }
-
   extractionLogAvailable() {
     if (!this.validation || !this.extractionLogExists) return false;
     switch (this.validation['state']) {
@@ -184,6 +174,27 @@ export class ValidationComponent implements OnInit {
       const validation = this.validation;
       this.loadValidation(this.validation!['id']);
     });
+  }
+
+  canBeCanceled() {
+    if (!this.validation) return false;
+    if (this.userService.isAdmin() || this.userService.getBackendUser()?.id == this.validation['ownerId']) {
+      switch (this.validation!['state']) {
+        case 'READY_FOR_EXTRACTION':
+        case 'READY_FOR_EXECUTION':
+          return true;
+        default:
+          return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  cancelValidation() {
+    this.backend.cancelValidation(this.id).subscribe(result => {
+      this.loadValidation(this.id);
+    })
   }
 
 }
