@@ -45,10 +45,12 @@
             <div matListItemLine>{{user['email']}}</div>
             <div matListItemLine disableRipple="false" matRipple>
                 <mat-chip-listbox aria-label="admin" style="margin-top: -20px;">
-                    <!-- <mat-chip-option color="disabled" selectable="false">Registrovaný uživatel</mat-chip-option> -->
-                    <mat-chip-option color="primary" selected="{{isVerifiedNotAdmin(user)}}">Ověřený
+                    <mat-chip-option color="primary" selected="{{isVerifiedNotAdmin(user)}}"
+                        (selectionChange)="onUserRoleChipSelection($event, user)" value="verifiedUser">Ověřený
                         uživatel</mat-chip-option>
-                    <mat-chip-option color="warn" selected="{{isAdmin(user)}}">Administrátor</mat-chip-option>
+                    <mat-chip-option color="warn" selected="{{isAdmin(user)}}"
+                        (selectionChange)="onUserRoleChipSelection($event, user)"
+                        value="adminUser">Administrátor</mat-chip-option>
                 </mat-chip-listbox>
             </div>
             <div matListItemLine style="margin-bottom: -20px;"></div>
