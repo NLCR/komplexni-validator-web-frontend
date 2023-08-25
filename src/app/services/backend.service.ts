@@ -34,6 +34,7 @@ export class BackendService {
   // }
 
   private head(path: string, options = {}): Observable<Object> {
+    console.log('HEAD ' + path)
     return this.http.head(this.baseUrl + path, options);
   }
 
@@ -179,7 +180,6 @@ export class BackendService {
   createValidation(formData: any): Observable<any> {
     return this.post(`/kv-upload-service/api/uploads`,
       formData
-      //{ ownerId: ownerId, priority: priority, note: note }
     ).pipe(
       //delay(500),
       tap(response => {
@@ -198,19 +198,36 @@ export class BackendService {
       );
   }
 
+  checkExtractionLogExists(validationId: string): Observable<any> {
+    return this.head(`/kv-result-service/api/results/${validationId}/extraction-log`);
+  }
+
   getExtractionLogUrl(validationId: string) {
     return this.baseUrl + `/kv-result-service/api/results/${validationId}/extraction-log`;
+  }
+
+  checkExecutionLogExists(validationId: string): Observable<any> {
+    return this.head(`/kv-result-service/api/results/${validationId}/extraction-log`);
   }
 
   getExecutionLogUrl(validationId: string) {
     return this.baseUrl + `/kv-result-service/api/results/${validationId}/extraction-log`;
   }
 
+  checkValidationLogTxtExists(validationId: string): Observable<any> {
+    return this.head(`/kv-result-service/api/results/${validationId}/validation-log-txt`);
+  }
+
   getValidationLogTxtUrl(validationId: string) {
     return this.baseUrl + `/kv-result-service/api/results/${validationId}/validation-log-txt`;
+  }
+
+  checkValidationLogXmlExists(validationId: string): Observable<any> {
+    return this.head(`/kv-result-service/api/results/${validationId}/validation-log-xml`);
   }
 
   getValidationLogXmlUrl(validationId: string) {
     return this.baseUrl + `/kv-result-service/api/results/${validationId}/validation-log-xml`;
   }
+
 }

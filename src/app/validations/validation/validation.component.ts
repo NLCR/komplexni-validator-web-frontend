@@ -14,6 +14,11 @@ export class ValidationComponent implements OnInit {
   id = "";
   validation = undefined;
 
+  extractionLogExists = false;
+  executionLogExists = false;
+  validationLogTxtExists = false;
+  validationLogXmlExists = false;
+
   constructor(private backend: BackendService, private router: Router, private route: ActivatedRoute, private appSettings: AppSettingsService, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -26,8 +31,12 @@ export class ValidationComponent implements OnInit {
   loadValidation(id: string) {
     this.backend.getValidation(id).subscribe(result => {
       this.validation = result;
-      console.log(result);
+      //console.log(result);
     })
+    this.backend.checkExecutionLogExists(id).subscribe(() => this.executionLogExists = true);
+    this.backend.checkExtractionLogExists(id).subscribe(() => this.extractionLogExists = true);
+    this.backend.checkValidationLogTxtExists(id).subscribe(() => this.validationLogTxtExists = true);
+    this.backend.checkValidationLogXmlExists(id).subscribe(() => this.validationLogXmlExists = true);
   }
 
   canBeCanceled() {
@@ -41,7 +50,7 @@ export class ValidationComponent implements OnInit {
   }
 
   extractionLogAvailable() {
-    if (!this.validation) return false;
+    if (!this.validation || !this.extractionLogExists) return false;
     switch (this.validation['state']) {
       case 'READY_FOR_EXECUTION':
       case 'TO_BE_EXECUTED':
@@ -57,12 +66,8 @@ export class ValidationComponent implements OnInit {
     }
   }
 
-  extractionLogUrl() {
-    return this.backend.getExtractionLogUrl(this.validation!['id']);
-  }
-
   executionLogAvailable() {
-    if (!this.validation) return false;
+    if (!this.validation || this.executionLogExists) return false;
     switch (this.validation['state']) {
       case 'FINISHED':
       case 'ERROR': //nekdy muze byt prazdny, pokud error nastal treba pri rozbalovani
@@ -76,7 +81,7 @@ export class ValidationComponent implements OnInit {
   }
 
   validationLogTxtAvailable() {
-    if (!this.validation) return false;
+    if (!this.validation || !this.validationLogTxtExists) return false;
     switch (this.validation['state']) {
       case 'FINISHED':
       case 'ERROR': //nekdy muze byt prazdny, pokud error nastal treba pri rozbalovani
@@ -90,7 +95,7 @@ export class ValidationComponent implements OnInit {
   }
 
   validationLogXmlAvailable() {
-    if (!this.validation) return false;
+    if (!this.validation || !this.validationLogXmlExists) return false;
     switch (this.validation['state']) {
       case 'FINISHED':
       case 'TO_BE_ARCHIVED':
