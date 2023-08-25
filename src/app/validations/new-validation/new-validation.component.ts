@@ -156,9 +156,9 @@ export class NewValidationComponent implements OnInit {
         return this.dmfMonVersions;
       case 'per':
         return this.dmfPerVersions;
-      case 'audio_fono':
+      case 'adf':
         return this.dmfAudioFonoVersions;
-      case 'audio_gram':
+      case 'adg':
         return this.dmfAudioGramVersions;
       default: return [];
     }
