@@ -54,7 +54,7 @@
 
         <ng-container matColumnDef="note">
             <th mat-header-cell *matHeaderCellDef>Poznámka</th>
-            <td mat-cell *matCellDef="let element">{{element.note}} </td>
+            <td mat-cell *matCellDef="let element" class="table-cell-note">{{element.note}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

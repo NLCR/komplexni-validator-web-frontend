@@ -10,3 +10,10 @@
 table {
     width: 100%;
 }
+
+.table-cell-note {
+    max-width: 300px;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: normal;
+}
