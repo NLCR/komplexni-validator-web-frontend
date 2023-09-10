@@ -69,14 +69,13 @@ export class NewValidationComponent implements OnInit {
         newFormData.append("dmf-type", this.dmfType!)
       }
       if (this.dmfPreferedVersion) {
-        newFormData.append("preferred-dmf-version", this.dmfPreferedVersion!);
+        newFormData.append("preferred-dmf-version", this.dmfPreferedVersion!.split('_')[1]);
       }
       if (this.dmfForcedVersion) {
-        newFormData.append("forced-dmf-version", this.dmfForcedVersion!);
+        newFormData.append("forced-dmf-version", this.dmfForcedVersion!.split('_')[1]);
       }
       this.waitingForBackend = true;
       this.backend.createValidation(newFormData).subscribe(response => {
-        //console.log(response);
         this.waitingForBackend = false;
         this.cleanForm();
         const validationId = response['validation-id'];
@@ -130,18 +129,18 @@ export class NewValidationComponent implements OnInit {
     this.dmfType = event.value;
     this.dmfPreferedVersion = undefined;
     this.dmfForcedVersion = undefined;
-    this.logDmfParams();
+    //this.logDmfParams();
   }
 
   onDmfPreferredVersionSelected(event: any) {
     this.dmfPreferedVersion = event.value;
-    this.logDmfParams();
+    //this.logDmfParams();
   }
 
   onDmfForcedVersionSelected(event: any) {
     this.dmfForcedVersion = event.value;
     this.dmfPreferedVersion = undefined;
-    this.logDmfParams();
+    //this.logDmfParams();
   }
 
   logDmfParams() {
