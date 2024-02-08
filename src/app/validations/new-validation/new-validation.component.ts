@@ -41,6 +41,10 @@ export class NewValidationComponent implements OnInit {
   iAmAdmin = false;
   iAmVerified = false;
 
+  dmfPartialType: string | undefined = undefined
+  dmfPartialVersion: string | undefined = undefined;
+
+
   ngOnInit(): void {
     this.waitingForBackend = true;
     this.backend.getQuotas().subscribe(result => {
@@ -132,6 +136,12 @@ export class NewValidationComponent implements OnInit {
     //this.logDmfParams();
   }
 
+  onPartialDmfTypeSelected(event: any) {
+    this.dmfPartialType = event.value;
+    this.dmfPartialVersion = undefined;
+    //this.logDmfParams();
+  }
+
   onDmfPreferredVersionSelected(event: any) {
     this.dmfPreferedVersion = event.value;
     //this.logDmfParams();
@@ -143,6 +153,11 @@ export class NewValidationComponent implements OnInit {
     //this.logDmfParams();
   }
 
+  onPartialDmfVersionSelected(event: any) {
+    this.dmfPartialVersion = event.value;
+    //this.logDmfParams();
+  }
+
   logDmfParams() {
     console.log(this.dmfType);
     console.log(this.dmfForcedVersion);
@@ -151,6 +166,20 @@ export class NewValidationComponent implements OnInit {
 
   getAvailableDmfVersions() {
     switch (this.dmfType) {
+      case 'mon':
+        return this.dmfMonVersions;
+      case 'per':
+        return this.dmfPerVersions;
+      case 'adf':
+        return this.dmfAudioFonoVersions;
+      case 'adg':
+        return this.dmfAudioGramVersions;
+      default: return [];
+    }
+  }
+
+  getAvailableDmfPartialVersions() {
+    switch (this.dmfPartialType) {
       case 'mon':
         return this.dmfMonVersions;
       case 'per':
