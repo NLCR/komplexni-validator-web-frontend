@@ -63,13 +63,11 @@
                     <mat-icon>download</mat-icon>
                     stáhnout log extrakce</button>
             </div>
-            <!-- <br>
-        <div *ngIf="executionLogAvailable()">
-            <a  mat-flat-button color="primary" [href]="executionLogUrl()">
-                <mat-icon>download</mat-icon>
-                stáhnout log validace
-            </a>
-        </div> -->
+            <div *ngIf="clamavLogAvailable()" class="app-page-validation-button-container">
+                <button mat-stroked-button color="primary" (click)="downloadClamavLogTxt()">
+                    <mat-icon>download</mat-icon>
+                    stáhnout log antivirové kontroly</button>
+            </div>
             <div *ngIf="validationLogTxtAvailable()" class="app-page-validation-button-container">
                 <button mat-stroked-button color="primary" (click)="downloadValidationLogTxt()">
                     <mat-icon>download</mat-icon>

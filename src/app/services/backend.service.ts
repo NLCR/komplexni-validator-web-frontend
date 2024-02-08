@@ -218,6 +218,14 @@ export class BackendService {
     return this.baseUrl + `/kv-result-service/api/results/${validationId}/extraction-log`;
   }
 
+  checkClamavLogExists(validationId: string): Observable<any> {
+    return this.head(`/kv-result-service/api/results/${validationId}/clamav-log`);
+  }
+
+  getClamavLogUrl(validationId: string) {
+    return this.baseUrl + `/kv-result-service/api/results/${validationId}/clamav-log`;
+  }
+
   checkExecutionLogExists(validationId: string): Observable<any> {
     return this.head(`/kv-result-service/api/results/${validationId}/extraction-log`);
   }

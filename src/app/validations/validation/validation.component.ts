@@ -16,6 +16,7 @@ export class ValidationComponent implements OnInit {
   validation = undefined;
 
   extractionLogExists = false;
+  clamavLogExists = false;
   executionLogExists = false;
   validationLogTxtExists = false;
   validationLogXmlExists = false;
@@ -34,14 +35,32 @@ export class ValidationComponent implements OnInit {
       this.validation = result;
       //console.log(result);
     })
-    this.backend.checkExecutionLogExists(id).subscribe(() => this.executionLogExists = true);
     this.backend.checkExtractionLogExists(id).subscribe(() => this.extractionLogExists = true);
+    this.backend.checkClamavLogExists(id).subscribe(() => this.clamavLogExists = true);
+    this.backend.checkExecutionLogExists(id).subscribe(() => this.executionLogExists = true);
     this.backend.checkValidationLogTxtExists(id).subscribe(() => this.validationLogTxtExists = true);
     this.backend.checkValidationLogXmlExists(id).subscribe(() => this.validationLogXmlExists = true);
   }
 
   extractionLogAvailable() {
     if (!this.validation || !this.extractionLogExists) return false;
+    switch (this.validation['state']) {
+      case 'READY_FOR_EXECUTION':
+      case 'TO_BE_EXECUTED':
+      case 'EXECUTING':
+      case 'FINISHED':
+      case 'ERROR': //nekdy muze byt prazdny, pokud error nastal treba pri rozbalovani
+      case 'TO_BE_ARCHIVED':
+      case 'ARCHIVING':
+      case 'ARCHIVED':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  clamavLogAvailable() {
+    if (!this.validation || !this.clamavLogExists) return false;
     switch (this.validation['state']) {
       case 'READY_FOR_EXECUTION':
       case 'TO_BE_EXECUTED':
@@ -109,6 +128,22 @@ export class ValidationComponent implements OnInit {
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = `extraction_${packageName}_${validationId}_log.txt`
+      link.click();
+      URL.revokeObjectURL(downloadUrl);
+    });
+  }
+
+  downloadClamavLogTxt() {
+    //console.log(this.validation);
+    const packageName = this.validation!['packageName'];
+    const validationId = this.validation!['id'];
+    const url = this.backend.getClamavLogUrl(validationId)
+    this.downloadFile(url).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'text/plain' });
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `clamav_${packageName}_${validationId}_log.txt`
       link.click();
       URL.revokeObjectURL(downloadUrl);
     });
