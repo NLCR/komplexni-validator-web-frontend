@@ -50,7 +50,7 @@
 
                     <br>
 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Poznámka</mat-label>
                         <input matInput placeholder="Poznámka" [(ngModel)]="note" [ngModelOptions]="{standalone: true}"
                             [disabled]="waitingForBackend || userQuotasReached">
@@ -129,15 +129,19 @@
 
                     <br>
 
-                    <mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 75%;">
                         <mat-label>Typ profilu</mat-label>
-                        <mat-select [disabled]="true">
+                        <mat-select (selectionChange)="onPartialDmfProfileTypeSelected($event)"
+                            [disabled]="!dmfPartialType || !dmfPartialVersion || waitingForBackend || userQuotasReached">
+                            <mat-option *ngFor="let type of getAvailableDmfPartialProfileTypes()" value="{{type}}">
+                                {{type}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <br>
 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Poznámka</mat-label>
                         <input matInput placeholder="Poznámka" [(ngModel)]="note" [ngModelOptions]="{standalone: true}"
                             [disabled]="waitingForBackend || userQuotasReached">
