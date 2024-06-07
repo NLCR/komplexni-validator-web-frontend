@@ -190,7 +190,18 @@ export class BackendService {
   }
 
   createValidation(formData: any): Observable<any> {
-    return this.post(`/kv-upload-service/api/uploads`,
+    return this.post(`/kv-upload-service/api/upload-package`,
+      formData
+    ).pipe(
+      //delay(500),
+      tap(response => {
+        console.log(response)
+      })
+    );
+  }
+
+  createPartialValidation(formData: any): Observable<any> {
+    return this.post(`/kv-upload-service/api/upload-xml`,
       formData
     ).pipe(
       //delay(500),

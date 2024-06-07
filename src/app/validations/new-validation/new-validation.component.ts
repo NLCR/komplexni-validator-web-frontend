@@ -23,7 +23,8 @@ export class NewValidationComponent implements OnInit {
   dmfPreferedVersion: string | undefined = undefined;
   dmfForcedVersion: string | undefined = undefined;
 
-
+  file2Selected: File | undefined;
+  
   dmfMonVersions = ['monograph_1.0', 'monograph_1.2', 'monograph_1.3', 'monograph_1.3.1', 'monograph_1.3.2', 'monograph_1.4', 'monograph_2.0', 'monograph_2.1'];
   dmfPerVersions = ['periodical_1.4', 'periodical_1.6', 'periodical_1.7', 'periodical_1.7.1', 'periodical_1.8', 'periodical_1.9', 'periodical_2.0'];
   dmfAudioFonoVersions = ['audio_fono_0.3'];
@@ -95,6 +96,34 @@ export class NewValidationComponent implements OnInit {
     }
   }
 
+  schedule2() {
+    if (this.form2IsValid()) {
+      const newFormData = new FormData();
+      newFormData.append("file", this.file2Selected!);
+      
+      console.log(this.dmfPartialType);
+      console.log(this.dmfPartialVersion);
+      console.log(this.dmfPartialProfileType);
+
+      newFormData.append("metadata-profile-id", this.dmfPartialVersion + ":" + this.dmfPartialProfileType);
+      console.log(newFormData);
+
+      this.waitingForBackend = true;
+      this.backend.createPartialValidation(newFormData).subscribe(response => {
+        this.waitingForBackend = false;
+        // this.cleanForm2();
+        // const validationId = response['validation-id'];
+        // this.snackBar.open("Balíček byl nahrán a nova validace naplánována", "Zobrazit", { duration: 15000 }).onAction().subscribe(() => {
+        //   this.router.navigate(['validations', validationId]);
+        // });
+      }, error => {
+        console.log(error);
+        this.snackBar.open("Chyba při nahrávání balíčku", "Zavřít")
+        this.waitingForBackend = false;
+      })
+    }
+  }
+
   test() {
     this.backend.getValidationCounters().subscribe(result => {
       console.log(result);
@@ -109,8 +138,19 @@ export class NewValidationComponent implements OnInit {
     this.dmfForcedVersion = undefined;
   }
 
+  cleanForm2() {
+    this.file2Selected = undefined;
+    this.dmfPartialType = undefined;
+    this.dmfPartialVersion = undefined;
+    this.dmfPartialProfileType = undefined;
+  }
+
   packageTooBig() {
     return this.fileSelected && this.getPackageSizeMB()! > this.maxPackageSizeMB;
+  }
+
+  package2TooBig() {
+    return this.file2Selected && this.getPackageSizeMB()! > this.maxPackageSizeMB;
   }
 
   getPackageSizeMB() {
@@ -125,9 +165,18 @@ export class NewValidationComponent implements OnInit {
     return this.fileSelected && !this.packageTooBig();
   }
 
+  form2IsValid() {
+    return this.file2Selected && this.dmfPartialType && this.dmfPartialVersion && this.dmfPartialProfileType && !this.package2TooBig();
+  }
+
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.fileSelected = file;
+  }
+
+  onFile2Selected(event: any) {
+    const file: File = event.target.files[0];
+    this.file2Selected = file;
   }
 
   onDmfTypeSelected(event: any) {

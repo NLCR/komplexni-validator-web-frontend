@@ -141,32 +141,20 @@
 
                     <br>
 
-                    <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Poznámka</mat-label>
-                        <input matInput placeholder="Poznámka" [(ngModel)]="note" [ngModelOptions]="{standalone: true}"
-                            [disabled]="waitingForBackend || userQuotasReached">
-                        <mat-icon matSuffix color="primary">note</mat-icon>
-                    </mat-form-field>
-
                     <br>
 
-                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload
-                        accept="application/zip" [disabled]="waitingForBackend">
+                    <input type="file" class="file-input" (change)="onFile2Selected($event)" #file2Upload
+                        accept="text/xml" [disabled]="waitingForBackend">
                     <div class="file-upload">
-                        <!-- <button mat-stroked-button color="primary" class="upload-btn" (click)="fileUpload.click()"
-                            [disabled]="waitingForBackend || userQuotasReached">
-                            <mat-icon>attach_file</mat-icon>
-                            Vybrat metadatový soubor (XML)
-                        </button> -->
-                        <button mat-stroked-button color="primary" class="upload-btn" (click)="fileUpload.click()"
-                            [disabled]="true">
+                        <button mat-stroked-button color="primary" class="upload-btn" (click)="file2Upload.click()"
+                        [disabled]="waitingForBackend || userQuotasReached">
                             <mat-icon>attach_file</mat-icon>
                             Vybrat metadatový soubor (XML)
                         </button>
                     </div>
-                    <div *ngIf="fileSelected" style="padding: 8px;">
+                    <div *ngIf="file2Selected" style="padding: 8px;">
                         <div>
-                            soubor: {{fileSelected!.name}}
+                            soubor: {{file2Selected!.name}}
                         </div>
                         <div>
                             velikost: {{getPackageSizeMB()}} MB
@@ -187,7 +175,7 @@
         <mat-card-actions>
             <!-- <button mat-flat-button [disabled]="!formIsValid() || waitingForBackend || userQuotasReached"
                 color="primary" (click)="schedule()">Naplánovat validaci</button> -->
-            <button mat-flat-button [disabled]="true" color="primary" (click)="schedule()">Naplánovat validaci</button>
+            <button mat-flat-button [disabled]="!form2IsValid() || waitingForBackend || userQuotasReached" color="primary" (click)="schedule2()">Naplánovat částečnou validaci</button>
         </mat-card-actions>
     </mat-card>
 
