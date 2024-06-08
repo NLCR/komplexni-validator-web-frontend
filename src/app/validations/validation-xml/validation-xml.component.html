@@ -1,1 +1,96 @@
-<p>validation-xml works!</p>
+<div class="app-page-validation-xml-new">
+
+    <mat-card class="mat-card">
+        <mat-card-header>
+            <mat-card-title>Nahrání metadat k částečné validaci</mat-card-title>
+            <mat-card-subtitle>Validace metadat v XML oproti profilu pro DMF</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="app-page-validation-xml-new-form">
+                <form (ngSubmit)="validate()">
+
+                    <mat-form-field>
+                        <mat-label>Typ balíčku</mat-label>
+                        <mat-select (selectionChange)="onPartialDmfTypeSelected($event)" [disabled]="waitingForBackend">
+                            <mat-option value="mon">Monografie</mat-option>
+                            <mat-option value="per">Periodikum</mat-option>
+                            <mat-option value="adf">Zvuk-fonováleček</mat-option>
+                            <mat-option value="adg">Zvuk-gramodeska</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <br>
+
+                    <mat-form-field>
+                        <mat-label>Verze DMF</mat-label>
+                        <mat-select (selectionChange)="onPartialDmfVersionSelected($event)"
+                            [disabled]="!dmfPartialType || waitingForBackend">
+                            <mat-option *ngFor="let version of getAvailableDmfPartialVersions()" value="{{version}}">
+                                {{version}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <br>
+
+                    <mat-form-field appearance="fill" style="width: 75%;">
+                        <mat-label>Typ profilu</mat-label>
+                        <mat-select (selectionChange)="onPartialDmfProfileTypeSelected($event)"
+                            [disabled]="!dmfPartialType || !dmfPartialVersion || waitingForBackend">
+                            <mat-option *ngFor="let type of getAvailableDmfPartialProfileTypes()" value="{{type}}">
+                                {{type}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <br>
+
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #file2Upload
+                        accept="text/xml" [disabled]="waitingForBackend">
+                    <div class="file-upload">
+                        <button mat-stroked-button color="primary" class="upload-btn" (click)="file2Upload.click()"
+                            [disabled]="waitingForBackend">
+                            <mat-icon>attach_file</mat-icon>
+                            Vybrat metadatový soubor (XML)
+                        </button>
+                    </div>
+                    <div *ngIf="fileSelected" style="padding: 8px;">
+                        <div>
+                            soubor: {{fileSelected!.name}}
+                        </div>
+                        <div>
+                            velikost: {{getPackageSizeMB()}} MB
+                        </div>
+                        <div *ngIf="packageTooBig()" class="app-page-validation-xml-new-size-error">
+                            Soubor je příliš velký. Maximální povolená velikost je
+                            {{maxPackageSizeMB}}
+                            MB.
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="app-page-validation-xml-new-progressbar-container">
+                <mat-progress-bar *ngIf="waitingForBackend" mode="indeterminate"></mat-progress-bar>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-flat-button [disabled]="!formIsValid() || waitingForBackend" color="primary"
+                (click)="validate()">Validovat XML podle profilu</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- výsledky validace -->
+    <div *ngIf="validationResult" class="app-page-validation-xml-new-result">
+        <h2>Výsledek validace</h2>
+        <div>
+            <div *ngFor="let line of validationResult" [ngClass]="getResultLinceClass(line)">
+                {{line}}
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+</div>
