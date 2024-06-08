@@ -8,17 +8,25 @@ import { UsersComponent } from './users/users.component';
 import { NewValidationComponent } from './validations/new-validation/new-validation.component';
 import { ValidationComponent } from './validations/validation/validation.component';
 import { ValidationsComponent } from './validations/validations.component';
+import { ValidationXmlComponent } from './validations/validation-xml/validation-xml.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/about' , pathMatch: 'full'},
   { path: 'user', component: UserComponent },
   { path: 'about', component: AboutComponent, canActivate: [AuthGuardService] },
+  { path: 'validations/xml', component: ValidationXmlComponent, canActivate: [AuthGuardService] },
   { path: 'validations', component: ValidationsComponent, canActivate: [AuthGuardService] },
   { path: 'validations/new', component: NewValidationComponent, canActivate: [AuthGuardService] },
   { path: 'validations/:id', component: ValidationComponent, canActivate: [AuthGuardService] },
   { path: 'quotas', component: QuotasComponent, canActivate: [AuthGuardService] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] }
 ];
+
+//TODO: predelat:
+//validations/batch
+//validations/batch/new
+//validations/batch/:id
+//validations/xml
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

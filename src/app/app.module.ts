@@ -42,6 +42,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
 import { DatePipe } from '@angular/common';
 import { ChangeQuotaDialogComponent } from './quotas/change-quota-dialog/change-quota-dialog.component';
 import { ChangeUserRoleDialogComponent } from './users/change-user-role-dialog/change-user-role-dialog.component';
+import { ValidationXmlComponent } from './validations/validation-xml/validation-xml.component';
 
 
 export function initApp(initializerService: InitializerService) {
@@ -61,7 +62,8 @@ export function initApp(initializerService: InitializerService) {
     UserComponent,
     UsersComponent,
     ChangeQuotaDialogComponent,
-    ChangeUserRoleDialogComponent
+    ChangeUserRoleDialogComponent,
+    ValidationXmlComponent
   ],
   imports: [
     BrowserModule,
