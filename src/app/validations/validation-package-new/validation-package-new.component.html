@@ -1,4 +1,4 @@
-<div class="app-page-validations-new">
+<div class="app-page-validation-package-new">
 
     <mat-card class="mat-card">
         <mat-card-header>
@@ -7,7 +7,7 @@
         </mat-card-header>
         <mat-card-content>
 
-            <div class="app-page-validation-form">
+            <div class="app-page-validation-package-new-form">
                 <form (ngSubmit)="schedule()">
 
                     <mat-form-field>
@@ -74,7 +74,7 @@
                         <div>
                             velikost: {{getPackageSizeMB()}} MB
                         </div>
-                        <div *ngIf="packageTooBig()" class="app-page-validation-size-error">
+                        <div *ngIf="packageTooBig()" class="app-page-validation-package-new-size-error">
                             Soubor je příliš velký. Maximální povolená velikost je
                             {{maxPackageSizeMB}}
                             MB.
@@ -83,7 +83,7 @@
                 </form>
             </div>
 
-            <div class="app-page-validation-progressbar-container">
+            <div class="app-page-validation-package-new-progressbar-container">
                 <mat-progress-bar *ngIf="waitingForBackend" mode="indeterminate"></mat-progress-bar>
             </div>
         </mat-card-content>
@@ -101,7 +101,7 @@
         </mat-card-header>
         <mat-card-content>
 
-            <div class="app-page-validation-form">
+            <div class="app-page-validation-package-new-form">
                 <form (ngSubmit)="schedule()">
 
                     <mat-form-field>
@@ -147,7 +147,7 @@
                         accept="text/xml" [disabled]="waitingForBackend">
                     <div class="file-upload">
                         <button mat-stroked-button color="primary" class="upload-btn" (click)="file2Upload.click()"
-                        [disabled]="waitingForBackend || userQuotasReached">
+                            [disabled]="waitingForBackend || userQuotasReached">
                             <mat-icon>attach_file</mat-icon>
                             Vybrat metadatový soubor (XML)
                         </button>
@@ -159,7 +159,7 @@
                         <div>
                             velikost: {{getPackageSizeMB()}} MB
                         </div>
-                        <div *ngIf="packageTooBig()" class="app-page-validation-size-error">
+                        <div *ngIf="packageTooBig()" class="app-page-validation-package-new-size-error">
                             Soubor je příliš velký. Maximální povolená velikost je
                             {{maxPackageSizeMB}}
                             MB.
@@ -168,14 +168,15 @@
                 </form>
             </div>
 
-            <div class="app-page-validation-progressbar-container">
+            <div class="app-page-validation-package-new-progressbar-container">
                 <mat-progress-bar *ngIf="waitingForBackend" mode="indeterminate"></mat-progress-bar>
             </div>
         </mat-card-content>
         <mat-card-actions>
             <!-- <button mat-flat-button [disabled]="!formIsValid() || waitingForBackend || userQuotasReached"
                 color="primary" (click)="schedule()">Naplánovat validaci</button> -->
-            <button mat-flat-button [disabled]="!form2IsValid() || waitingForBackend || userQuotasReached" color="primary" (click)="schedule2()">Naplánovat částečnou validaci</button>
+            <button mat-flat-button [disabled]="!form2IsValid() || waitingForBackend || userQuotasReached"
+                color="primary" (click)="schedule2()">Naplánovat částečnou validaci</button>
         </mat-card-actions>
     </mat-card>
 

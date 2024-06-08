@@ -31,7 +31,7 @@ export class AboutComponent implements OnInit {
         this.backend.updateAndVerifyUser().subscribe(result => {
           console.log(result);
           this.userService.setBackendUser(result);
-          //this.router.navigate(['validations']);
+          //this.router.navigate(['validations', 'package']);
         });
       }
     });

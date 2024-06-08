@@ -1,4 +1,4 @@
-<div class="app-page-validation">
+<div class="app-page-validation-package">
     <div *ngIf="validation">
         <mat-card class="mat-card">
             <mat-card-header>
@@ -25,7 +25,7 @@
                     {{validation['preferredDmfVersion']}}
                 </div>
                 <div *ngIf="validation['priority']">priorita: {{validation['priority']}}</div>
-                <div class="app-page-validation-button-container" *ngIf="canChangePriority()">
+                <div class="app-page-validation-package-button-container" *ngIf="canChangePriority()">
                     <button mat-stroked-button color="warn" (click)="decreasePriority()">
                         <mat-icon>keyboard_arrow_down</mat-icon>
                         snížit prioritu
@@ -52,28 +52,28 @@
         </mat-card>
 
         <div>
-            <div *ngIf="canBeCanceled()" class="app-page-validation-button-container">
+            <div *ngIf="canBeCanceled()" class="app-page-validation-package-button-container">
                 <button mat-stroked-button color="warn" (click)="cancelValidation()">
                     <mat-icon>cancel</mat-icon>
                     zrušit</button>
             </div>
 
-            <div *ngIf="extractionLogAvailable()" class="app-page-validation-button-container">
+            <div *ngIf="extractionLogAvailable()" class="app-page-validation-package-button-container">
                 <button mat-stroked-button color="primary" (click)="downloadExtractionLogTxt()">
                     <mat-icon>download</mat-icon>
                     stáhnout log extrakce</button>
             </div>
-            <div *ngIf="clamavLogAvailable()" class="app-page-validation-button-container">
+            <div *ngIf="clamavLogAvailable()" class="app-page-validation-package-button-container">
                 <button mat-stroked-button color="primary" (click)="downloadClamavLogTxt()">
                     <mat-icon>download</mat-icon>
                     stáhnout log antivirové kontroly</button>
             </div>
-            <div *ngIf="validationLogTxtAvailable()" class="app-page-validation-button-container">
+            <div *ngIf="validationLogTxtAvailable()" class="app-page-validation-package-button-container">
                 <button mat-stroked-button color="primary" (click)="downloadValidationLogTxt()">
                     <mat-icon>download</mat-icon>
                     stáhnout log validace (txt)</button>
             </div>
-            <div *ngIf="validationLogXmlAvailable()" class="app-page-validation-button-container">
+            <div *ngIf="validationLogXmlAvailable()" class="app-page-validation-package-button-container">
                 <button mat-stroked-button color="primary" (click)="downloadValidationLogXml()">
                     <mat-icon>download</mat-icon>
                     stáhnout log validace (xml)</button>

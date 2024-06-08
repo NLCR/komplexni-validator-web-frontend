@@ -7,10 +7,10 @@ import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-validation',
-  templateUrl: './validation.component.html',
-  styleUrls: ['./validation.component.scss']
+  templateUrl: './validation-package.component.html',
+  styleUrls: ['./validation-package.component.scss']
 })
-export class ValidationComponent implements OnInit {
+export class ValidationPackageComponent implements OnInit {
 
   id = "";
   validation = undefined;

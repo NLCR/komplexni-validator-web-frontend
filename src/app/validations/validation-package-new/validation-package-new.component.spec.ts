@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewValidationComponent } from './new-validation.component';
+import { ValidationPackageNewComponent } from './validation-package-new.component';
 
 describe('NewValidationComponent', () => {
-  let component: NewValidationComponent;
-  let fixture: ComponentFixture<NewValidationComponent>;
+  let component: ValidationPackageNewComponent;
+  let fixture: ComponentFixture<ValidationPackageNewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewValidationComponent ]
+      declarations: [ ValidationPackageNewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewValidationComponent);
+    fixture = TestBed.createComponent(ValidationPackageNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

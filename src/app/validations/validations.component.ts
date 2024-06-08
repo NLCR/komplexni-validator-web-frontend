@@ -76,12 +76,11 @@ export class ValidationsComponent implements OnInit {
   }
 
   routeToNewValidationForm() {
-    this.router.navigate(['/', 'validations', 'new']);
+    this.router.navigate(['/', 'validations', 'package', 'new']);
   }
 
   routeToValidation(id: string) {
-    //this.router.navigate(['/', 'validations', id]);
-    this.router.navigate(['/', 'validations', id]);
+    this.router.navigate(['/', 'validations', 'package', id]);
   }
 
   cancelValidation(validation: any) {

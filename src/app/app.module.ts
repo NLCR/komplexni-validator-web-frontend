@@ -28,8 +28,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AboutComponent } from './about/about.component';
 import { QuotasComponent } from './quotas/quotas.component';
 import { ValidationsComponent } from './validations/validations.component';
-import { ValidationComponent } from './validations/validation/validation.component';
-import { NewValidationComponent } from './validations/new-validation/new-validation.component';
+import { ValidationPackageComponent } from './validations/validation-package/validation-package.component';
+import { ValidationPackageNewComponent } from './validations/validation-package-new/validation-package-new.component';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
@@ -57,8 +57,8 @@ export function initApp(initializerService: InitializerService) {
     ValidationsComponent,
     AboutComponent,
     QuotasComponent,
-    NewValidationComponent,
-    ValidationComponent,
+    ValidationPackageNewComponent,
+    ValidationPackageComponent,
     UserComponent,
     UsersComponent,
     ChangeQuotaDialogComponent,

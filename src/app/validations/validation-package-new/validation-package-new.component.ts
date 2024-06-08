@@ -6,10 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-new-validation',
-  templateUrl: './new-validation.component.html',
-  styleUrls: ['./new-validation.component.scss']
+  templateUrl: './validation-package-new.component.html',
+  styleUrls: ['./validation-package-new.component.scss']
 })
-export class NewValidationComponent implements OnInit {
+export class ValidationPackageNewComponent implements OnInit {
 
   constructor(private backend: BackendService, private router: Router, private snackBar: MatSnackBar, private userService: UserService) { }
 
@@ -86,7 +86,7 @@ export class NewValidationComponent implements OnInit {
         this.cleanForm();
         const validationId = response['validation-id'];
         this.snackBar.open("Balíček byl nahrán a nova validace naplánována", "Zobrazit", { duration: 15000 }).onAction().subscribe(() => {
-          this.router.navigate(['validations', validationId]);
+          this.router.navigate(['validations', 'package', validationId]);
         });
       }, error => {
         console.log(error);

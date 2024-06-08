@@ -9,11 +9,11 @@
       <a routerLink="/validations/xml" routerLinkActive="active" mat-button class="app-navbar-item-a">Validovat XML</a>
     </div>
     <div class="app-navbar-item" *ngIf="isLoggedIn()">
-      <a routerLink="/validations/new" routerLinkActive="active" mat-button class="app-navbar-item-a">Validovat
+      <a routerLink="/validations/package/new" routerLinkActive="active" mat-button class="app-navbar-item-a">Validovat
         balík</a>
     </div>
     <div class="app-navbar-item" *ngIf="isLoggedIn()">
-      <a routerLink="/validations" routerLinkActive="active" mat-button class="app-navbar-item-a">Přehled validací</a>
+      <a routerLink="/validations/package" routerLinkActive="active" mat-button class="app-navbar-item-a">Přehled validací</a>
     </div>
     <div class="app-navbar-item" *ngIf="isAdmin()">
       <a routerLink="/quotas" routerLinkActive="active" mat-button class="app-navbar-item-a">Kvóty</a>
